@@ -7,83 +7,83 @@
 
 @layer base {
   :root {
-    --background: 252 252 248;
-    --foreground: 40 26 12;
+    --background: 255 254 252;
+    --foreground: 51 47 42;
 
-    --card: 252 252 248;
-    --card-foreground: 40 26 12;
+    --card: 255 254 252;
+    --card-foreground: 51 47 42;
 
-    --popover: 252 252 248;
-    --popover-foreground: 40 26 12;
+    --popover: 255 254 252;
+    --popover-foreground: 51 47 42;
 
-    --primary: 142 69 23;
-    --primary-foreground: 252 252 248;
+    --primary: 168 113 78;
+    --primary-foreground: 255 254 252;
 
-    --secondary: 245 238 220;
-    --secondary-foreground: 92 69 49;
+    --secondary: 248 246 242;
+    --secondary-foreground: 82 73 66;
 
-    --muted: 245 238 220;
-    --muted-foreground: 120 88 67;
+    --muted: 248 246 242;
+    --muted-foreground: 115 104 95;
 
-    --accent: 207 159 83;
-    --accent-foreground: 40 26 12;
+    --accent: 221 181 144;
+    --accent-foreground: 51 47 42;
 
     --destructive: 220 38 38;
-    --destructive-foreground: 252 252 248;
+    --destructive-foreground: 255 254 252;
 
-    --border: 231 216 188;
-    --input: 231 216 188;
-    --ring: 142 69 23;
+    --border: 237 230 221;
+    --input: 237 230 221;
+    --ring: 168 113 78;
 
     --radius: 0.75rem;
 
-    --sidebar-background: 252 252 248;
-    --sidebar-foreground: 120 88 67;
-    --sidebar-primary: 142 69 23;
-    --sidebar-primary-foreground: 252 252 248;
-    --sidebar-accent: 245 238 220;
-    --sidebar-accent-foreground: 92 69 49;
-    --sidebar-border: 231 216 188;
-    --sidebar-ring: 142 69 23;
+    --sidebar-background: 255 254 252;
+    --sidebar-foreground: 115 104 95;
+    --sidebar-primary: 168 113 78;
+    --sidebar-primary-foreground: 255 254 252;
+    --sidebar-accent: 248 246 242;
+    --sidebar-accent-foreground: 82 73 66;
+    --sidebar-border: 237 230 221;
+    --sidebar-ring: 168 113 78;
   }
 
   .dark {
-    --background: 28 20 15;
-    --foreground: 252 248 235;
+    --background: 32 28 24;
+    --foreground: 250 247 241;
 
-    --card: 28 20 15;
-    --card-foreground: 252 248 235;
+    --card: 32 28 24;
+    --card-foreground: 250 247 241;
 
-    --popover: 28 20 15;
-    --popover-foreground: 252 248 235;
+    --popover: 32 28 24;
+    --popover-foreground: 250 247 241;
 
-    --primary: 207 159 83;
-    --primary-foreground: 28 20 15;
+    --primary: 221 181 144;
+    --primary-foreground: 32 28 24;
 
-    --secondary: 40 35 28;
-    --secondary-foreground: 252 248 235;
+    --secondary: 46 41 35;
+    --secondary-foreground: 250 247 241;
 
-    --muted: 40 35 28;
-    --muted-foreground: 170 146 120;
+    --muted: 46 41 35;
+    --muted-foreground: 160 145 130;
 
-    --accent: 142 69 23;
-    --accent-foreground: 252 248 235;
+    --accent: 168 113 78;
+    --accent-foreground: 250 247 241;
 
     --destructive: 239 68 68;
-    --destructive-foreground: 252 248 235;
+    --destructive-foreground: 250 247 241;
 
-    --border: 64 55 45;
-    --input: 64 55 45;
-    --ring: 207 159 83;
+    --border: 70 61 52;
+    --input: 70 61 52;
+    --ring: 221 181 144;
 
-    --sidebar-background: 28 20 15;
-    --sidebar-foreground: 170 146 120;
-    --sidebar-primary: 207 159 83;
-    --sidebar-primary-foreground: 28 20 15;
-    --sidebar-accent: 40 35 28;
-    --sidebar-accent-foreground: 252 248 235;
-    --sidebar-border: 64 55 45;
-    --sidebar-ring: 207 159 83;
+    --sidebar-background: 32 28 24;
+    --sidebar-foreground: 160 145 130;
+    --sidebar-primary: 221 181 144;
+    --sidebar-primary-foreground: 32 28 24;
+    --sidebar-accent: 46 41 35;
+    --sidebar-accent-foreground: 250 247 241;
+    --sidebar-border: 70 61 52;
+    --sidebar-ring: 221 181 144;
   }
 }
 
@@ -96,12 +96,13 @@
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
     font-family: 'Inter', system-ui, sans-serif;
+    line-height: 1.6;
   }
 }
 
 /* Scrollbar personnalisé */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -110,37 +111,54 @@
 
 ::-webkit-scrollbar-thumb {
   background: hsl(var(--primary) / 0.3);
-  border-radius: 4px;
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--primary) / 0.5);
 }
 
-/* Animations pour les cartes */
+/* Animations douces pour les cartes */
 .card-hover {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .card-hover:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -8px rgba(168, 113, 78, 0.15);
 }
 
-/* Badge vidéo avec pulsation */
+/* Badge vidéo avec animation douce */
 .video-badge {
-  animation: pulse-glow 2s infinite;
+  animation: soft-pulse 3s infinite;
 }
 
-@keyframes pulse-glow {
+@keyframes soft-pulse {
   0%, 100% {
     opacity: 1;
-    box-shadow: 0 0 0 0 rgba(142, 69, 23, 0.4);
+    transform: scale(1);
   }
   50% {
-    opacity: 0.8;
-    box-shadow: 0 0 0 8px rgba(142, 69, 23, 0);
+    opacity: 0.9;
+    transform: scale(1.02);
   }
+}
+
+/* Boutons avec style naturel */
+.btn-natural {
+  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+  border: none;
+  border-radius: 12px;
+  padding: 12px 24px;
+  color: hsl(var(--primary-foreground));
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(168, 113, 78, 0.2);
+}
+
+.btn-natural:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(168, 113, 78, 0.3);
 }
 
 html {
@@ -149,4 +167,19 @@ html {
 
 .focus-visible:focus-visible {
   @apply ring-2 ring-ring ring-offset-2 ring-offset-background outline-none;
+}
+
+/* Style naturel pour les inputs */
+input, select, textarea {
+  background: hsl(var(--background));
+  border: 1.5px solid hsl(var(--border));
+  border-radius: 10px;
+  padding: 12px 16px;
+  transition: all 0.3s ease;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: hsl(var(--primary));
+  box-shadow: 0 0 0 3px rgba(168, 113, 78, 0.1);
+  outline: none;
 }
