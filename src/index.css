@@ -3,87 +3,87 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Design system chaleureux et naturel pour logements atypiques */
+/* Design system simple et naturel pour logements atypiques */
 
 @layer base {
   :root {
-    --background: 255 254 252;
-    --foreground: 51 47 42;
+    --background: 255 249 244; /* #fff9f4 - beige */
+    --foreground: 0 0 0; /* noir */
 
-    --card: 255 254 252;
-    --card-foreground: 51 47 42;
+    --card: 255 249 244;
+    --card-foreground: 0 0 0;
 
-    --popover: 255 254 252;
-    --popover-foreground: 51 47 42;
+    --popover: 255 249 244;
+    --popover-foreground: 0 0 0;
 
-    --primary: 168 113 78;
-    --primary-foreground: 255 254 252;
+    --primary: 106 160 134; /* rgb(106, 160, 134) - vert */
+    --primary-foreground: 255 249 244;
 
-    --secondary: 248 246 242;
-    --secondary-foreground: 82 73 66;
+    --secondary: 245 240 234; /* beige plus foncé */
+    --secondary-foreground: 0 0 0;
 
-    --muted: 248 246 242;
-    --muted-foreground: 115 104 95;
+    --muted: 245 240 234;
+    --muted-foreground: 100 100 100; /* gris foncé */
 
-    --accent: 221 181 144;
-    --accent-foreground: 51 47 42;
+    --accent: 106 160 134;
+    --accent-foreground: 255 249 244;
 
     --destructive: 220 38 38;
-    --destructive-foreground: 255 254 252;
+    --destructive-foreground: 255 249 244;
 
-    --border: 237 230 221;
-    --input: 237 230 221;
-    --ring: 168 113 78;
+    --border: 230 220 210; /* beige foncé pour les bordures */
+    --input: 230 220 210;
+    --ring: 106 160 134;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
 
-    --sidebar-background: 255 254 252;
-    --sidebar-foreground: 115 104 95;
-    --sidebar-primary: 168 113 78;
-    --sidebar-primary-foreground: 255 254 252;
-    --sidebar-accent: 248 246 242;
-    --sidebar-accent-foreground: 82 73 66;
-    --sidebar-border: 237 230 221;
-    --sidebar-ring: 168 113 78;
+    --sidebar-background: 255 249 244;
+    --sidebar-foreground: 100 100 100;
+    --sidebar-primary: 106 160 134;
+    --sidebar-primary-foreground: 255 249 244;
+    --sidebar-accent: 245 240 234;
+    --sidebar-accent-foreground: 0 0 0;
+    --sidebar-border: 230 220 210;
+    --sidebar-ring: 106 160 134;
   }
 
   .dark {
-    --background: 32 28 24;
-    --foreground: 250 247 241;
+    --background: 20 20 20;
+    --foreground: 255 249 244;
 
-    --card: 32 28 24;
-    --card-foreground: 250 247 241;
+    --card: 20 20 20;
+    --card-foreground: 255 249 244;
 
-    --popover: 32 28 24;
-    --popover-foreground: 250 247 241;
+    --popover: 20 20 20;
+    --popover-foreground: 255 249 244;
 
-    --primary: 221 181 144;
-    --primary-foreground: 32 28 24;
+    --primary: 106 160 134;
+    --primary-foreground: 255 249 244;
 
-    --secondary: 46 41 35;
-    --secondary-foreground: 250 247 241;
+    --secondary: 40 40 40;
+    --secondary-foreground: 255 249 244;
 
-    --muted: 46 41 35;
-    --muted-foreground: 160 145 130;
+    --muted: 40 40 40;
+    --muted-foreground: 200 200 200;
 
-    --accent: 168 113 78;
-    --accent-foreground: 250 247 241;
+    --accent: 106 160 134;
+    --accent-foreground: 255 249 244;
 
     --destructive: 239 68 68;
-    --destructive-foreground: 250 247 241;
+    --destructive-foreground: 255 249 244;
 
-    --border: 70 61 52;
-    --input: 70 61 52;
-    --ring: 221 181 144;
+    --border: 60 60 60;
+    --input: 60 60 60;
+    --ring: 106 160 134;
 
-    --sidebar-background: 32 28 24;
-    --sidebar-foreground: 160 145 130;
-    --sidebar-primary: 221 181 144;
-    --sidebar-primary-foreground: 32 28 24;
-    --sidebar-accent: 46 41 35;
-    --sidebar-accent-foreground: 250 247 241;
-    --sidebar-border: 70 61 52;
-    --sidebar-ring: 221 181 144;
+    --sidebar-background: 20 20 20;
+    --sidebar-foreground: 200 200 200;
+    --sidebar-primary: 106 160 134;
+    --sidebar-primary-foreground: 255 249 244;
+    --sidebar-accent: 40 40 40;
+    --sidebar-accent-foreground: 255 249 244;
+    --sidebar-border: 60 60 60;
+    --sidebar-ring: 106 160 134;
   }
 }
 
@@ -100,7 +100,7 @@
   }
 }
 
-/* Scrollbar personnalisé */
+/* Scrollbar simple */
 ::-webkit-scrollbar {
   width: 6px;
 }
@@ -118,17 +118,17 @@
   background: hsl(var(--primary) / 0.5);
 }
 
-/* Animations douces pour les cartes */
+/* Animations simples pour les cartes */
 .card-hover {
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transition: all 0.3s ease;
 }
 
 .card-hover:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px -8px rgba(168, 113, 78, 0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
-/* Badge vidéo avec animation douce */
+/* Badge vidéo */
 .video-badge {
   animation: soft-pulse 3s infinite;
 }
@@ -144,23 +144,6 @@
   }
 }
 
-/* Boutons avec style naturel */
-.btn-natural {
-  background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
-  border: none;
-  border-radius: 12px;
-  padding: 12px 24px;
-  color: hsl(var(--primary-foreground));
-  font-weight: 500;
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 12px rgba(168, 113, 78, 0.2);
-}
-
-.btn-natural:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(168, 113, 78, 0.3);
-}
-
 html {
   scroll-behavior: smooth;
 }
@@ -169,17 +152,17 @@ html {
   @apply ring-2 ring-ring ring-offset-2 ring-offset-background outline-none;
 }
 
-/* Style naturel pour les inputs */
+/* Style simple pour les inputs */
 input, select, textarea {
   background: hsl(var(--background));
-  border: 1.5px solid hsl(var(--border));
-  border-radius: 10px;
-  padding: 12px 16px;
-  transition: all 0.3s ease;
+  border: 1px solid hsl(var(--border));
+  border-radius: 6px;
+  padding: 10px 12px;
+  transition: all 0.2s ease;
 }
 
 input:focus, select:focus, textarea:focus {
   border-color: hsl(var(--primary));
-  box-shadow: 0 0 0 3px rgba(168, 113, 78, 0.1);
+  box-shadow: 0 0 0 2px rgba(106, 160, 134, 0.1);
   outline: none;
 }
