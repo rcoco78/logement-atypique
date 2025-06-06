@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -29,7 +28,7 @@ const SearchFilters = () => {
 
   return (
     <div className="bg-background border border-border rounded-lg shadow-lg p-6 -mt-12 mx-4 md:mx-8 lg:mx-16 relative z-10">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 items-end">
         {/* Location */}
         <div className="lg:col-span-2">
           <label className="block text-sm font-medium text-foreground/80 mb-2">
@@ -102,13 +101,13 @@ const SearchFilters = () => {
             </SelectContent>
           </Select>
         </div>
-      </div>
 
-      {/* Search Button */}
-      <div className="mt-6 flex justify-center">
-        <Button size="lg" className="px-12">
-          Rechercher
-        </Button>
+        {/* Search Button - dans la grille */}
+        <div className="col-span-1 lg:col-span-1 flex justify-center lg:justify-end mt-4 lg:mt-0">
+          <Button size="lg" className="px-12 w-full lg:w-auto">
+            Rechercher
+          </Button>
+        </div>
       </div>
     </div>
   );

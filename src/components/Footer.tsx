@@ -1,4 +1,3 @@
-
 import { Link } from 'react-router-dom';
 
 const Footer = () => {
@@ -64,7 +63,13 @@ const Footer = () => {
               <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
                 <span className="sr-only">Instagram</span>
                 <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987s11.987-5.367 11.987-11.987C24.014 5.367 18.647.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.49-3.326-1.297-.878-.808-1.297-1.959-1.297-3.326 0-1.297.49-2.448 1.297-3.326.808-.878 1.959-1.297 3.326-1.297 1.297 0 2.448.49 3.326 1.297.878.808 1.297 1.959 1.297 3.326 0 1.297-.49 2.448-1.297 3.326-.808.878-1.959 1.297-3.326 1.297zm7.718-2.326c-.878.808-1.959 1.297-3.326 1.297-1.297 0-2.448-.49-3.326-1.297-.878-.808-1.297-1.959-1.297-3.326 0-1.297.49-2.448 1.297-3.326.808-.878 1.959-1.297 3.326-1.297 1.297 0 2.448.49 3.326 1.297.878.808 1.297 1.959 1.297 3.326 0 1.297-.49 2.448-1.297 3.326z"/>
+                  <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5A4.25 4.25 0 0 0 20.5 16.25v-8.5A4.25 4.25 0 0 0 16.25 3.5zm4.25 2.25a6.25 6.25 0 1 1-6.25 6.25 6.25 6.25 0 0 1 6.25-6.25zm0 1.5a4.75 4.75 0 1 0 4.75 4.75A4.75 4.75 0 0 0 12 5.25zm6.5 1.25a1 1 0 1 1-1 1 1 1 0 0 1 1-1z"/>
+                </svg>
+              </a>
+              <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
+                <span className="sr-only">TikTok</span>
+                <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12.75 2h2.25a.75.75 0 0 1 .75.75v2.25a4.75 4.75 0 0 0 4.75 4.75h1.25a.75.75 0 0 1 .75.75v2.25a.75.75 0 0 1-.75.75h-1.25A7.25 7.25 0 0 1 13.5 4.75V2.75A.75.75 0 0 1 14.25 2h-1.5a.75.75 0 0 1-.75.75v14.5a2.25 2.25 0 1 1-2.25-2.25.75.75 0 0 1 .75-.75h2.25a.75.75 0 0 1 .75.75A5.25 5.25 0 1 1 7.5 19.25V4.75A.75.75 0 0 1 8.25 4h1.5a.75.75 0 0 1 .75.75v14.5a3.75 3.75 0 1 0 3.75-3.75.75.75 0 0 1-.75-.75v-2.25a.75.75 0 0 1 .75-.75h2.25a.75.75 0 0 1 .75.75v2.25a6.25 6.25 0 1 1-6.25-6.25V2.75A.75.75 0 0 1 12.75 2z"/>
                 </svg>
               </a>
             </div>
@@ -92,7 +97,7 @@ const Footer = () => {
 
         <div className="border-t border-border mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-muted-foreground text-sm">
-            © 2024 logement-atypique.fr. Tous droits réservés.
+            © 2025 logement-atypique.fr. Tous droits réservés.
           </p>
           <div className="flex items-center space-x-4 mt-4 md:mt-0">
             <span className="text-muted-foreground text-sm">

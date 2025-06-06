@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -7,35 +6,36 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 20 14.3% 4.1%;
+    --background: 254 99% 98%; /* #FEFCFA - Off-white */
+    --foreground: 32 7% 16%; /* #2C2A26 - Noir profond */
 
-    --card: 0 0% 100%;
-    --card-foreground: 20 14.3% 4.1%;
+    --card: 254 99% 98%; /* #FEFCFA */
+    --card-foreground: 32 7% 16%; /* #2C2A26 */
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 20 14.3% 4.1%;
+    --popover: 254 99% 98%;
+    --popover-foreground: 32 7% 16%;
 
-    --primary: 24 9.8% 10%;
-    --primary-foreground: 60 9.1% 97.8%;
+    --primary: 24 37% 39%; /* #8B5A3C - Terre chaude */
+    --primary-hover: 24 40% 27%; /* #724A32 - Terre chaude foncée */
+    --primary-foreground: 254 99% 98%; /* #FEFCFA */
 
-    --secondary: 60 4.8% 95.9%;
-    --secondary-foreground: 24 9.8% 10%;
+    --secondary: 30 51% 64%; /* #D4A574 - Ocre */
+    --secondary-foreground: 32 7% 16%;
 
-    --muted: 60 4.8% 95.9%;
-    --muted-foreground: 25 5.3% 44.7%;
+    --muted: 32 7% 80%; /* beige/gris doux */
+    --muted-foreground: 32 4% 41%; /* #6B6660 - Medium */
 
-    --accent: 60 4.8% 95.9%;
-    --accent-foreground: 24 9.8% 10%;
+    --accent: 30 51% 64%; /* #D4A574 - Ocre */
+    --accent-foreground: 32 7% 16%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 60 9.1% 97.8%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 254 99% 98%;
 
-    --border: 20 5.9% 90%;
-    --input: 20 5.9% 90%;
-    --ring: 24 9.8% 10%;
+    --border: 32 7% 90%; /* beige clair pour bordures */
+    --input: 32 7% 90%;
+    --ring: 24 37% 39%;
 
-    --radius: 0.5rem;
+    --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -48,33 +48,34 @@
   }
 
   .dark {
-    --background: 20 14.3% 4.1%;
-    --foreground: 60 9.1% 97.8%;
+    --background: 32 7% 16%;
+    --foreground: 254 99% 98%;
 
-    --card: 20 14.3% 4.1%;
-    --card-foreground: 60 9.1% 97.8%;
+    --card: 32 7% 16%;
+    --card-foreground: 254 99% 98%;
 
-    --popover: 20 14.3% 4.1%;
-    --popover-foreground: 60 9.1% 97.8%;
+    --popover: 32 7% 16%;
+    --popover-foreground: 254 99% 98%;
 
-    --primary: 60 9.1% 97.8%;
-    --primary-foreground: 24 9.8% 10%;
+    --primary: 24 37% 39%;
+    --primary-hover: 24 40% 27%;
+    --primary-foreground: 254 99% 98%;
 
-    --secondary: 12 6.5% 15.1%;
-    --secondary-foreground: 60 9.1% 97.8%;
+    --secondary: 30 51% 64%;
+    --secondary-foreground: 32 7% 16%;
 
-    --muted: 12 6.5% 15.1%;
-    --muted-foreground: 24 5.4% 63.9%;
+    --muted: 32 7% 41%;
+    --muted-foreground: 254 99% 98%;
 
-    --accent: 12 6.5% 15.1%;
-    --accent-foreground: 60 9.1% 97.8%;
+    --accent: 30 51% 64%;
+    --accent-foreground: 254 99% 98%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 60 9.1% 97.8%;
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 254 99% 98%;
 
-    --border: 12 6.5% 15.1%;
-    --input: 12 6.5% 15.1%;
-    --ring: 24 5.7% 82.9%;
+    --border: 32 7% 41%;
+    --input: 32 7% 41%;
+    --ring: 24 37% 39%;
 
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
@@ -84,6 +85,54 @@
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  h1, h2, h3, h4, h5, h6, .serif, .editorial, .story {
+    font-family: 'Source Serif Pro', serif;
+  }
+  .serif, .editorial, .story {
+    font-size: 1.1em;
+    line-height: 1.7;
+    font-weight: 400;
+  }
+  .price {
+    color: hsl(32, 7%, 16%); /* #2C2A26 */
+    font-weight: bold;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  .desc, .description {
+    color: hsl(32, 4%, 41%); /* #6B6660 */
+    font-family: 'Source Serif Pro', serif;
+    font-size: 1.08em;
+    line-height: 1.7;
+  }
+  .badge-selection {
+    background: hsl(30, 51%, 64%); /* #D4A574 */
+    color: hsl(32, 7%, 16%);
+    border-radius: 999px;
+    padding: 0.25em 0.9em;
+    font-size: 0.95em;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  .btn-primary {
+    background: hsl(24, 37%, 39%); /* #8B5A3C */
+    color: hsl(254, 99%, 98%);
+    border-radius: var(--radius);
+    border: none;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  .btn-primary:hover {
+    background: hsl(24, 40%, 27%); /* #724A32 */
+  }
+  .card-bg {
+    background: hsl(254, 99%, 98%); /* #FEFCFA */
+    border-radius: var(--radius);
+    box-shadow: 0 4px 24px 0 rgba(139, 90, 60, 0.07), 0 1.5px 6px 0 rgba(44,42,38,0.04);
   }
 }
 

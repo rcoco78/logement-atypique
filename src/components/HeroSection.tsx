@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
@@ -9,19 +8,19 @@ const HeroSection = () => {
   const slides = [
     {
       id: 1,
-      image: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      image: "https://groupeconfiance.fr/wp-content/uploads/2023/12/logement-insolite.jpg",
       title: "Cabanes perchées",
       subtitle: "Dormez dans les arbres"
     },
     {
       id: 2,
-      image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      image: "https://www.immoba.fr/site/images/normal/Picture39749949jpg_5ed907db5699a.jpg",
       title: "Lofts d'architecte",
       subtitle: "Design moderne et élégant"
     },
     {
       id: 3,
-      image: "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+      image: "https://www.esprit-insolite.com/wp-content/uploads/2023/08/investir-hebergement-insolite.jpg",
       title: "Maisons de verre",
       subtitle: "Transparence et nature"
     }
@@ -76,8 +75,8 @@ const HeroSection = () => {
             <Button size="lg" className="text-lg px-8 py-3">
               Découvrir nos lieux
             </Button>
-            <Button size="lg" variant="outline" className="text-lg px-8 py-3 text-white border-white hover:bg-white hover:text-black">
-              Inspiration
+            <Button size="lg" variant="outline" className="text-lg px-8 py-3 text-muted-foreground border-white hover:bg-white hover:text-black">
+              Proposer votre logement
             </Button>
           </div>
         </div>
