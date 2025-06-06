@@ -1,7 +1,7 @@
 
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Search, Menu, X } from 'lucide-react';
+import { Menu, X, Camera } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 const Header = () => {
@@ -10,9 +10,7 @@ const Header = () => {
   const navigation = [
     { name: 'Accueil', href: '/' },
     { name: 'Logements', href: '/logements' },
-    { name: 'Destinations', href: '/destinations' },
-    { name: 'Inspiration', href: '/inspiration' },
-    { name: 'À propos', href: '/a-propos' },
+    { name: 'Partenariat', href: '/partenariat' },
   ];
 
   return (
@@ -21,7 +19,8 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <div className="text-2xl font-bold text-primary">logement-atypique</div>
+            <Camera className="h-8 w-8 text-primary" />
+            <div className="text-xl font-bold text-primary">logement-atypique</div>
           </Link>
 
           {/* Desktop Navigation */}
@@ -30,29 +29,22 @@ const Header = () => {
               <Link
                 key={item.name}
                 to={item.href}
-                className="text-foreground/80 hover:text-foreground transition-colors duration-200 font-medium"
+                className="text-foreground/80 hover:text-primary transition-colors duration-200 font-medium border-b-2 border-transparent hover:border-primary pb-1"
               >
                 {item.name}
               </Link>
             ))}
           </nav>
 
-          {/* Search and Menu */}
-          <div className="flex items-center space-x-4">
-            <Button variant="ghost" size="icon" className="hidden sm:flex">
-              <Search className="h-5 w-5" />
-            </Button>
-            
-            {/* Mobile menu button */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="md:hidden"
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-            >
-              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </Button>
-          </div>
+          {/* Mobile menu button */}
+          <Button
+            variant="ghost"
+            size="icon"
+            className="md:hidden"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
+            {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </Button>
         </div>
 
         {/* Mobile Navigation */}
@@ -63,7 +55,7 @@ const Header = () => {
                 <Link
                   key={item.name}
                   to={item.href}
-                  className="block px-3 py-2 text-foreground/80 hover:text-foreground transition-colors duration-200"
+                  className="block px-3 py-2 text-foreground/80 hover:text-primary hover:bg-muted rounded-md transition-colors duration-200"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   {item.name}
