@@ -10,9 +10,7 @@ const Header = () => {
   const navigation = [
     { name: 'Accueil', href: '/' },
     { name: 'Logements', href: '/logements' },
-    { name: 'Destinations', href: '/destinations' },
-    { name: 'Inspiration', href: '/inspiration' },
-    { name: 'À propos', href: '/a-propos' },
+    { name: 'Partenariat', href: '/partenariat' },
   ];
 
   return (
@@ -30,7 +28,7 @@ const Header = () => {
               <Link
                 key={item.name}
                 to={item.href}
-                className="text-foreground/80 hover:text-foreground transition-colors duration-200 font-medium"
+                className="text-foreground/80 hover:text-foreground transition-colors duration-200 font-medium border-b-2 border-transparent hover:border-primary"
               >
                 {item.name}
               </Link>
