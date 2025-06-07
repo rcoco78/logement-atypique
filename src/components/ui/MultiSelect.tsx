@@ -49,9 +49,10 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
   const displayValue =
     value.length === 0
       ? placeholder
-      : value.length === 1
-      ? options.find((o) => o.value === value[0])?.label
-      : `${value.length} sélectionnées`;
+      : value
+          .map((val) => options.find((o) => o.value === val)?.label)
+          .filter(Boolean)
+          .join(', ');
 
   return (
     <div className={cn('relative', className)} ref={ref}>
