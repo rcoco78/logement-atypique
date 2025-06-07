@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -72,12 +73,16 @@ const HeroSection = () => {
             {slides[currentSlide].subtitle}
           </p>
           <div className="space-y-4 sm:space-y-0 sm:space-x-4 sm:flex sm:justify-center animate-fade-in">
-            <Button size="lg" variant="white" className="text-lg px-8 py-3">
-              Découvrir nos lieux
-            </Button>
-            <Button size="lg" variant="brown" className="text-lg px-8 py-3">
-              Proposer votre logement
-            </Button>
+            <Link to="/logements">
+              <Button size="lg" variant="white" className="text-lg px-8 py-3">
+                Découvrir nos lieux
+              </Button>
+            </Link>
+            <Link to="/partenariat">
+              <Button size="lg" variant="brown" className="text-lg px-8 py-3">
+                Proposer votre logement
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
