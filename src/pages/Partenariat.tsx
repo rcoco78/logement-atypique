@@ -156,11 +156,68 @@ const Partenariat = () => {
             <CardHeader>
               <CardTitle>Contactez-nous</CardTitle>
               <CardDescription>
-                Remplissez ce formulaire et nous vous contacterons rapidement pour organiser le tournage.
+                Remplissez ce formulaire et nous vous contacterons rapidement pour organiser le tournage gratuit de votre logement.
               </CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <label htmlFor="propertyType" className="block text-sm font-medium mb-2">
+                    Type de logement *
+                  </label>
+                  <select
+                    id="propertyType"
+                    name="propertyType"
+                    required
+                    value={formData.propertyType}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
+                  >
+                    <option value="">Sélectionnez</option>
+                    <option value="cabane">Cabane dans les arbres</option>
+                    <option value="tiny-house">Tiny house</option>
+                    <option value="loft">Loft atypique</option>
+                    <option value="maison-architecte">Maison d'architecte</option>
+                    <option value="yourte">Yourte</option>
+                    <option value="dome">Dôme géodésique</option>
+                    <option value="maison-flottante">Maison flottante</option>
+                    <option value="maison-troglodyte">Maison troglodyte</option>
+                    <option value="autre">Autre</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label htmlFor="description" className="block text-sm font-medium mb-2">
+                    Description de votre logement *
+                  </label>
+                  <textarea
+                    id="description"
+                    name="description"
+                    required
+                    rows={4}
+                    placeholder="Décrivez ce qui rend votre logement unique et exceptionnel..."
+                    value={formData.description}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="location" className="block text-sm font-medium mb-2">
+                    Localisation *
+                  </label>
+                  <input
+                    type="text"
+                    id="location"
+                    name="location"
+                    required
+                    placeholder="Ville, Région"
+                    value={formData.location}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
+                  />
+                </div>
+
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="name" className="block text-sm font-medium mb-2">
@@ -207,72 +264,28 @@ const Partenariat = () => {
                     />
                   </div>
                   <div>
-                    <label htmlFor="propertyType" className="block text-sm font-medium mb-2">
-                      Type de logement *
+                    <label htmlFor="website" className="block text-sm font-medium mb-2">
+                      Site web (optionnel)
                     </label>
-                    <select
-                      id="propertyType"
-                      name="propertyType"
-                      required
-                      value={formData.propertyType}
+                    <input
+                      type="url"
+                      id="website"
+                      name="website"
+                      value={formData.website}
                       onChange={handleChange}
                       className="w-full px-3 py-2 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
-                    >
-                      <option value="">Sélectionnez</option>
-                      <option value="cabane">Cabane dans les arbres</option>
-                      <option value="tiny-house">Tiny house</option>
-                      <option value="loft">Loft atypique</option>
-                      <option value="maison-architecte">Maison d'architecte</option>
-                      <option value="yourte">Yourte</option>
-                      <option value="autre">Autre</option>
-                    </select>
+                    />
                   </div>
                 </div>
 
-                <div>
-                  <label htmlFor="location" className="block text-sm font-medium mb-2">
-                    Localisation *
-                  </label>
-                  <input
-                    type="text"
-                    id="location"
-                    name="location"
-                    required
-                    placeholder="Ville, Région"
-                    value={formData.location}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="website" className="block text-sm font-medium mb-2">
-                    Site web (optionnel)
-                  </label>
-                  <input
-                    type="url"
-                    id="website"
-                    name="website"
-                    value={formData.website}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="description" className="block text-sm font-medium mb-2">
-                    Description de votre logement *
-                  </label>
-                  <textarea
-                    id="description"
-                    name="description"
-                    required
-                    rows={4}
-                    placeholder="Décrivez ce qui rend votre logement unique..."
-                    value={formData.description}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
-                  />
+                <div className="bg-muted/50 p-4 rounded-lg text-sm text-muted-foreground">
+                  <p className="font-medium mb-2">Ce que nous vous offrons :</p>
+                  <ul className="list-disc list-inside space-y-1">
+                    <li>Tournage vidéo professionnel gratuit</li>
+                    <li>Photos haute qualité de votre logement</li>
+                    <li>Mise en avant sur notre plateforme</li>
+                    <li>Contenu réutilisable pour vos réseaux sociaux</li>
+                  </ul>
                 </div>
 
                 <Button type="submit" size="lg" className="w-full" disabled={isLoading}>
