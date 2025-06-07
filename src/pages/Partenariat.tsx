@@ -205,7 +205,7 @@ const Partenariat = () => {
                     value={formData.propertyType}
                     onValueChange={value => handleChange({ target: { name: 'propertyType', value } } as any)}
                   >
-                    <SelectTrigger>
+                    <SelectTrigger className="bg-white">
                       <SelectValue placeholder="Type" />
                     </SelectTrigger>
                     <SelectContent>
@@ -290,7 +290,7 @@ const Partenariat = () => {
                     <label htmlFor="phone" className="block text-sm font-medium mb-2">
                       Téléphone *
                     </label>
-                    <div className="flex gap-2">
+                    <div className="flex gap-2 md:max-w-sm w-full">
                       <select
                         name="phoneCountry"
                         value={formData.phoneCountry}
@@ -311,7 +311,7 @@ const Partenariat = () => {
                         placeholder={phonePatterns[formData.phoneCountry as keyof typeof phonePatterns].placeholder}
                         value={formData.phone}
                         onChange={handleChange}
-                        className="flex-1 px-3 py-2 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
+                        className="w-full px-3 py-2 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
                       />
                     </div>
                   </div>
