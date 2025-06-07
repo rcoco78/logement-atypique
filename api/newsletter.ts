@@ -1,10 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { google } from 'googleapis';
 
-export const config = {
-  runtime: 'edge',
-};
-
 const handler = async (req: VercelRequest, res: VercelResponse) => {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Méthode non autorisée' });
