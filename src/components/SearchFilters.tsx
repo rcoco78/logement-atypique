@@ -21,8 +21,8 @@ const SearchFilters = () => {
     return loc ? loc.trim() : '';
   }))).filter(Boolean);
 
-  // Capacité dynamique à partir des logements
-  const capacityOptions = Array.from(new Set(featuredProperties.map((p) => p.capacity))).filter(Boolean).sort((a, b) => Number(a) - Number(b));
+  // Capacité dynamique à partir des logements (uniquement valeurs numériques)
+  const capacityOptions = Array.from(new Set(featuredProperties.map((p) => Number(p.capacity)))).filter((n) => !isNaN(n) && n > 0).sort((a, b) => a - b);
   const priceRanges = ['< 100€', '100-200€', '200-300€', '300€+'];
 
   // Récupérer dynamiquement les destinations à partir des logements (avant la virgule)
@@ -93,14 +93,11 @@ const SearchFilters = () => {
               <SelectValue placeholder="Capacité" />
             </SelectTrigger>
             <SelectContent>
-              {capacityOptions.map((cap: string | number) => {
-                const n = Number(cap);
-                return (
-                  <SelectItem key={cap} value={String(cap)}>
-                    {n} {n > 1 ? 'personnes' : 'personne'}
-                  </SelectItem>
-                );
-              })}
+              {capacityOptions.map((n: number) => (
+                <SelectItem key={n} value={String(n)}>
+                  {n} {n > 1 ? 'personnes' : 'personne'}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         </div>
