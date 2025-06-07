@@ -110,7 +110,7 @@ const SearchFilters = () => {
               <SelectValue placeholder="Type" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Tous</SelectItem>
+              <SelectItem value="all">Aucun</SelectItem>
               {accommodationTypes.map((type: string) => (
                 <SelectItem key={type} value={type}>
                   {type}
@@ -130,7 +130,7 @@ const SearchFilters = () => {
               <SelectValue placeholder="Capacité" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Toutes</SelectItem>
+              <SelectItem value="all">Aucun</SelectItem>
               {capacityOptions.map((n: number) => (
                 <SelectItem key={n} value={String(n)}>
                   {n} {n > 1 ? 'personnes' : 'personne'}
@@ -150,7 +150,7 @@ const SearchFilters = () => {
               <SelectValue placeholder="Prix" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Tous</SelectItem>
+              <SelectItem value="all">Aucun</SelectItem>
               {priceRanges.map((range) => (
                 <SelectItem key={range} value={range}>
                   {range}
