@@ -290,18 +290,18 @@ const FeaturedSection = ({ limit }: { limit?: number }) => {
       {location.pathname !== '/' && (
         <div className="flex flex-col items-center mt-8">
           <div className="border border-[#BFA48A] rounded-xl p-6 bg-transparent shadow-sm w-full max-w-xl md:w-2/3">
-            <Link to="/partenariat">
+          <Link to="/partenariat">
               <Button
                 size="lg"
                 variant="white"
                 className="w-full text-lg h-12 font-bold"
                 aria-label="Proposer un logement atypique"
               >
-                Proposer un logement atypique
-              </Button>
-            </Link>
+              Proposer un logement atypique
+            </Button>
+          </Link>
             <div className="text-xs text-[#BFA48A] mt-2 text-center font-normal">
-              On filme gratuitement et dans la semaine en Île-de-France !
+            On filme gratuitement et dans la semaine en Île-de-France !
             </div>
           </div>
         </div>

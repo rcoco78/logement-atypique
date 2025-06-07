@@ -19,7 +19,7 @@ const NotFound = () => {
           <Button asChild size="lg" className="mt-2">
             <a href="/">Retour à l'accueil</a>
           </Button>
-        </div>
+      </div>
       </main>
       <Footer />
     </div>

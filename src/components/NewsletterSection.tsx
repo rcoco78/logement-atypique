@@ -22,11 +22,11 @@ const NewsletterSection = () => {
       });
       const data = await response.json();
       if (response.ok && data.message === 'OK') {
-        toast({
+      toast({
           title: "Merci, vous êtes bien inscrit à la newsletter !",
-          description: "Vous recevrez nos dernières découvertes directement dans votre boîte mail.",
-        });
-        setEmail('');
+        description: "Vous recevrez nos dernières découvertes directement dans votre boîte mail.",
+      });
+      setEmail('');
       } else {
         toast({
           title: "Erreur lors de l'inscription",

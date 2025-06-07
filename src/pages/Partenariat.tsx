@@ -314,30 +314,30 @@ const Partenariat = () => {
                           ))}
                         </SelectContent>
                       </Select>
-                      <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
                         required
                         placeholder={phonePatterns[formData.phoneCountry as keyof typeof phonePatterns].placeholder}
-                        value={formData.phone}
-                        onChange={handleChange}
-                        className="w-full px-3 py-2 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label htmlFor="website" className="block text-sm font-medium mb-2">
-                      Site web (optionnel)
-                    </label>
-                    <input
-                      type="url"
-                      id="website"
-                      name="website"
-                      value={formData.website}
+                      value={formData.phone}
                       onChange={handleChange}
                       className="w-full px-3 py-2 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
                     />
+                  </div>
+                  </div>
+                <div>
+                  <label htmlFor="website" className="block text-sm font-medium mb-2">
+                    Site web (optionnel)
+                  </label>
+                  <input
+                    type="url"
+                    id="website"
+                    name="website"
+                    value={formData.website}
+                    onChange={handleChange}
+                    className="w-full px-3 py-2 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
+                  />
                   </div>
                 </div>
 

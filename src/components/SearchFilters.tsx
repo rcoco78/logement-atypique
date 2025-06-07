@@ -85,7 +85,7 @@ const SearchFilters = () => {
   };
 
   return (
-    <div className={`bg-background border border-border rounded-lg shadow-lg p-6 max-w-[80rem] mx-auto relative z-10 ${isHome ? '-mt-12' : 'mt-0'}`}>
+    <div className={`bg-background border border-border rounded-lg shadow-lg p-6 max-w-[80rem] mx-4 md:mx-auto relative z-10 ${isHome ? '-mt-12' : 'mt-0'}`}>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 items-end">
         {/* Destination MultiSelect */}
         <div className="lg:col-span-2">
