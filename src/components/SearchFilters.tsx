@@ -93,11 +93,14 @@ const SearchFilters = () => {
               <SelectValue placeholder="Capacité" />
             </SelectTrigger>
             <SelectContent>
-              {capacityOptions.map((cap: string | number) => (
-                <SelectItem key={cap} value={String(cap)}>
-                  {cap} personne{Number(cap) > 1 ? 's' : ''}
-                </SelectItem>
-              ))}
+              {capacityOptions.map((cap: string | number) => {
+                const n = Number(cap);
+                return (
+                  <SelectItem key={cap} value={String(cap)}>
+                    {n} {n > 1 ? 'personnes' : 'personne'}
+                  </SelectItem>
+                );
+              })}
             </SelectContent>
           </Select>
         </div>
