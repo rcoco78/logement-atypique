@@ -13,17 +13,15 @@ const NewsletterSection = () => {
     setIsLoading(true);
 
     try {
-      const formData = new URLSearchParams();
-      formData.append('email', email);
-      const response = await fetch('https://script.google.com/macros/s/AKfycbyAHGt4CAk5eNoXIgP-WlaImYNgyKsPW8kOetBpw1if5YU5_yLmgOp37B1z21U1NJAexA/exec', {
+      const response = await fetch('/api/newsletter', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
+          'Content-Type': 'application/json',
         },
-        body: formData.toString(),
+        body: JSON.stringify({ email }),
       });
-      const text = await response.text();
-      if (response.ok && text.includes('OK')) {
+      const data = await response.json();
+      if (response.ok && data.message === 'OK') {
         toast({
           title: "Merci, vous êtes bien inscrit à la newsletter !",
           description: "Vous recevrez nos dernières découvertes directement dans votre boîte mail.",
