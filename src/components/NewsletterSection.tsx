@@ -22,7 +22,8 @@ const NewsletterSection = () => {
         },
         body: formData.toString(),
       });
-      if (response.ok) {
+      const text = await response.text();
+      if (response.ok && text.includes('OK')) {
         toast({
           title: "Inscription réussie !",
           description: "Vous recevrez nos dernières découvertes directement dans votre boîte mail.",
