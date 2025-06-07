@@ -24,6 +24,7 @@ module.exports = async (req, res) => {
     nomComplet,
     email,
     telephone,
+    telephonePays,
     typeLogement,
     localisation,
     siteWeb,
@@ -32,6 +33,25 @@ module.exports = async (req, res) => {
 
   if (!nomComplet || !email || !typeLogement || !localisation || !description) {
     return res.status(400).json({ error: 'Champs obligatoires manquants' });
+  }
+
+  // Formatage du téléphone en international
+  function formatPhoneInternational(phone, country) {
+    const digits = phone.replace(/[^\d]/g, '');
+    switch (country) {
+      case 'FR':
+        return '+33' + digits.replace(/^0/, '');
+      case 'BE':
+        return '+32' + digits.replace(/^0/, '');
+      case 'CH':
+        return '+41' + digits.replace(/^0/, '');
+      case 'LU':
+        return '+352' + digits.replace(/^0/, '');
+      case 'CA':
+        return '+1' + digits;
+      default:
+        return phone;
+    }
   }
 
   try {
@@ -77,7 +97,7 @@ module.exports = async (req, res) => {
             new Date().toLocaleString(),
             nomComplet,
             email,
-            telephone || '',
+            formatPhoneInternational(telephone, telephonePays) || '',
             typeLogement,
             localisation,
             siteWeb || '',
