@@ -66,16 +66,16 @@ const HeroSection = () => {
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="text-center text-white max-w-4xl px-4">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 animate-fade-in">
-            Logements d'exception
+            Logements atypiques
           </h1>
           <p className="text-xl md:text-2xl mb-8 opacity-90 animate-fade-in">
             {slides[currentSlide].subtitle}
           </p>
           <div className="space-y-4 sm:space-y-0 sm:space-x-4 sm:flex sm:justify-center animate-fade-in">
-            <Button size="lg" className="text-lg px-8 py-3">
+            <Button size="lg" variant="white" className="text-lg px-8 py-3">
               Découvrir nos lieux
             </Button>
-            <Button size="lg" variant="outline" className="text-lg px-8 py-3 text-muted-foreground border-white hover:bg-white hover:text-black">
+            <Button size="lg" variant="brown" className="text-lg px-8 py-3">
               Proposer votre logement
             </Button>
           </div>
