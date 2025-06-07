@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Video, Star, Users, Camera } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '@/components/ui/select';
 
 const Partenariat = () => {
   const [formData, setFormData] = useState({
@@ -200,25 +201,25 @@ const Partenariat = () => {
                   <label htmlFor="propertyType" className="block text-sm font-medium mb-2">
                     Type de logement *
                   </label>
-                  <select
-                    id="propertyType"
-                    name="propertyType"
-                    required
+                  <Select
                     value={formData.propertyType}
-                    onChange={handleChange}
-                    className="w-full px-3 py-2 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
+                    onValueChange={value => handleChange({ target: { name: 'propertyType', value } } as any)}
                   >
-                    <option value="">Sélectionnez</option>
-                    <option value="cabane">Cabane dans les arbres</option>
-                    <option value="tiny-house">Tiny house</option>
-                    <option value="loft">Loft atypique</option>
-                    <option value="maison-architecte">Maison d'architecte</option>
-                    <option value="yourte">Yourte</option>
-                    <option value="dome">Dôme géodésique</option>
-                    <option value="maison-flottante">Maison flottante</option>
-                    <option value="maison-troglodyte">Maison troglodyte</option>
-                    <option value="autre">Autre</option>
-                  </select>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Type" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="cabane">Cabane dans les arbres</SelectItem>
+                      <SelectItem value="tiny-house">Tiny house</SelectItem>
+                      <SelectItem value="loft">Loft atypique</SelectItem>
+                      <SelectItem value="maison-architecte">Maison d'architecte</SelectItem>
+                      <SelectItem value="yourte">Yourte</SelectItem>
+                      <SelectItem value="dome">Dôme géodésique</SelectItem>
+                      <SelectItem value="maison-flottante">Maison flottante</SelectItem>
+                      <SelectItem value="maison-troglodyte">Maison troglodyte</SelectItem>
+                      <SelectItem value="autre">Autre</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </div>
 
                 <div>
@@ -285,7 +286,7 @@ const Partenariat = () => {
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-4 min-w-0">
-                  <div>
+                  <div className="md:max-w-md w-full">
                     <label htmlFor="phone" className="block text-sm font-medium mb-2">
                       Téléphone *
                     </label>
@@ -313,9 +314,6 @@ const Partenariat = () => {
                         className="flex-1 px-3 py-2 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
                       />
                     </div>
-                    <p className="text-xs text-muted-foreground mt-1">
-                      Format: {phonePatterns[formData.phoneCountry as keyof typeof phonePatterns].example}
-                    </p>
                   </div>
                   <div>
                     <label htmlFor="website" className="block text-sm font-medium mb-2">
