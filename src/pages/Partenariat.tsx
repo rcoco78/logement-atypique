@@ -23,6 +23,30 @@ const Partenariat = () => {
     e.preventDefault();
     setIsLoading(true);
 
+    // Validation de l'email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast({
+        title: "Format d'email invalide",
+        description: "Veuillez entrer une adresse email valide.",
+        variant: 'destructive',
+      });
+      setIsLoading(false);
+      return;
+    }
+
+    // Validation du téléphone (format français)
+    const phoneRegex = /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/;
+    if (!phoneRegex.test(formData.phone)) {
+      toast({
+        title: "Format de téléphone invalide",
+        description: "Veuillez entrer un numéro de téléphone français valide (ex: 06 12 34 56 78).",
+        variant: 'destructive',
+      });
+      setIsLoading(false);
+      return;
+    }
+
     try {
       const response = await fetch('/api/partenariat', {
         method: 'POST',
@@ -252,16 +276,19 @@ const Partenariat = () => {
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <label htmlFor="phone" className="block text-sm font-medium mb-2">
-                      Téléphone
+                      Téléphone *
                     </label>
                     <input
                       type="tel"
                       id="phone"
                       name="phone"
+                      required
+                      placeholder="06 12 34 56 78"
                       value={formData.phone}
                       onChange={handleChange}
                       className="w-full px-3 py-2 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
                     />
+                    <p className="text-xs text-muted-foreground mt-1">Format: 06 12 34 56 78</p>
                   </div>
                   <div>
                     <label htmlFor="website" className="block text-sm font-medium mb-2">
