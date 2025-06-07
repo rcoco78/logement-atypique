@@ -1,13 +1,9 @@
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import FeaturedSection from '@/components/FeaturedSection';
 import SearchFilters from '@/components/SearchFilters';
 
 const Logements = () => {
   return (
     <div className="min-h-screen bg-background">
-      <Header />
-      
       <main className="pt-40 pb-16">
         <div className="text-center mb-8 px-4">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
@@ -22,8 +18,6 @@ const Logements = () => {
         </div>
         <FeaturedSection />
       </main>
-
-      <Footer />
     </div>
   );
 };

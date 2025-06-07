@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Video, Star, Users, Camera } from 'lucide-react';
@@ -126,8 +124,6 @@ const Partenariat = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Header />
-      
       <main className="pt-40 px-4 max-w-7xl mx-auto">
         {/* Hero Section */}
         <div className="text-center mb-16">
@@ -359,8 +355,6 @@ const Partenariat = () => {
           </Card>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 };
