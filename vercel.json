@@ -1,7 +1,8 @@
 {
   "version": 2,
   "rewrites": [
-    { "source": "/api/newsletter", "destination": "/api/newsletter.cjs" }
+    { "source": "/api/newsletter", "destination": "/api/newsletter.cjs" },
+    { "source": "/api/partenariat", "destination": "/api/partenariat.cjs" }
   ],
   "headers": [
     {
