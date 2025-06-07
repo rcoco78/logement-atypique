@@ -7,16 +7,16 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 shadow-md rounded-full max-w-5xl mx-auto mt-6 mb-8 px-2">
+    <header className="sticky top-0 z-50 bg-[#885c3f] shadow-md rounded-full max-w-7xl mx-auto mt-6 mb-8 px-4">
       <div className="flex items-center justify-between h-16">
         {/* Logo + texte */}
-        <Link to="/" className="flex items-center gap-2 pl-4">
+        <Link to="/" className="flex items-center gap-2 pl-2">
           <svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect x="7" y="14" width="18" height="12" rx="2" fill="#8B5A3C"/>
             <polygon points="16,6 4,16 6,18 16,10 26,18 28,16" fill="#D4A574"/>
             <rect x="13" y="20" width="6" height="6" rx="1" fill="#FEFCFA"/>
           </svg>
-          <span className="font-bold text-lg text-foreground">logement insolite</span>
+          <span className="font-bold text-lg text-white">logement insolite</span>
         </Link>
 
         {/* Liens centraux */}
