@@ -40,10 +40,7 @@ const Header = () => {
 
           {/* Search and Menu */}
           <div className="flex items-center space-x-4">
-            <Button variant="ghost" size="icon" className="hidden sm:flex">
-              <Search className="h-5 w-5" />
-            </Button>
-            
+            {/* Le bouton de recherche desktop a été supprimé */}
             {/* Mobile menu button */}
             <Button
               variant="ghost"
