@@ -4,6 +4,7 @@ import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Video, Star, Users, Camera } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 
 const Partenariat = () => {
   const [formData, setFormData] = useState({
@@ -15,9 +16,13 @@ const Partenariat = () => {
     description: '',
     website: ''
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoading(true);
+
     try {
       const response = await fetch('/api/partenariat', {
         method: 'POST',
@@ -35,24 +40,36 @@ const Partenariat = () => {
         }),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Erreur lors de l\'envoi du formulaire');
+      const data = await response.json();
+      if (response.ok && data.message === 'OK') {
+        toast({
+          title: "Merci pour votre demande !",
+          description: "Nous vous contacterons rapidement pour organiser le tournage.",
+        });
+        setFormData({
+          name: '',
+          email: '',
+          phone: '',
+          propertyType: '',
+          location: '',
+          description: '',
+          website: ''
+        });
+      } else {
+        toast({
+          title: "Erreur lors de l'envoi",
+          description: data.error || "Une erreur est survenue. Veuillez réessayer.",
+          variant: 'destructive',
+        });
       }
-
-      alert('Merci pour votre demande ! Nous vous contacterons rapidement.');
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        propertyType: '',
-        location: '',
-        description: '',
-        website: ''
-      });
     } catch (error) {
-      console.error('Erreur:', error);
-      alert('Une erreur est survenue lors de l\'envoi du formulaire. Veuillez réessayer.');
+      toast({
+        title: "Erreur lors de l'envoi",
+        description: "Impossible de contacter le serveur. Veuillez réessayer.",
+        variant: 'destructive',
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -258,8 +275,8 @@ const Partenariat = () => {
                   />
                 </div>
 
-                <Button type="submit" size="lg" className="w-full">
-                  Envoyer ma demande
+                <Button type="submit" size="lg" className="w-full" disabled={isLoading}>
+                  {isLoading ? 'Envoi en cours...' : 'Envoyer ma demande'}
                 </Button>
               </form>
             </CardContent>
