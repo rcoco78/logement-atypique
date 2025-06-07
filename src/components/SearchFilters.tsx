@@ -24,6 +24,12 @@ const SearchFilters = () => {
   const capacityOptions = ['1-2 personnes', '3-4 personnes', '5-6 personnes', '7+ personnes'];
   const priceRanges = ['< 100€', '100-200€', '200-300€', '300€+'];
 
+  // Récupérer dynamiquement les destinations à partir des logements (avant la virgule)
+  const destinationOptions = Array.from(new Set(featuredProperties.map((p) => {
+    const dest = p.location.split(',')[0];
+    return dest ? dest.trim() : '';
+  }))).filter(Boolean);
+
   const navigate = useNavigate();
 
   const handleSearch = () => {
@@ -38,19 +44,19 @@ const SearchFilters = () => {
   return (
     <div className="bg-background border border-border rounded-lg shadow-lg p-6 -mt-12 mx-4 md:mx-8 lg:mx-16 relative z-10">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 items-end">
-        {/* Region Toggle */}
+        {/* Destination Toggle */}
         <div className="lg:col-span-2">
           <label className="block text-sm font-medium text-foreground/80 mb-2">
-            Région
+            Destination
           </label>
           <Select value={filters.location} onValueChange={(value) => setFilters({ ...filters, location: value })}>
             <SelectTrigger>
-              <SelectValue placeholder="Choisissez une région" />
+              <SelectValue placeholder="Choisissez une destination" />
             </SelectTrigger>
             <SelectContent>
-              {regionOptions.map((region: string) => (
-                <SelectItem key={region} value={region}>
-                  {region}
+              {destinationOptions.map((dest: string) => (
+                <SelectItem key={dest} value={dest}>
+                  {dest}
                 </SelectItem>
               ))}
             </SelectContent>
