@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -13,15 +12,36 @@ const NewsletterSection = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    // Simulate API call
-    setTimeout(() => {
-      toast({
-        title: "Inscription réussie !",
-        description: "Vous recevrez nos dernières découvertes directement dans votre boîte mail.",
+    try {
+      const response = await fetch('https://script.google.com/macros/s/AKfycbyAHGt4CAk5eNoXIgP-WlaImYNgyKsPW8kOetBpw1if5YU5_yLmgOp37B1z21U1NJAexA/exec', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
       });
-      setEmail('');
+      if (response.ok) {
+        toast({
+          title: "Inscription réussie !",
+          description: "Vous recevrez nos dernières découvertes directement dans votre boîte mail.",
+        });
+        setEmail('');
+      } else {
+        toast({
+          title: "Erreur lors de l'inscription",
+          description: "Une erreur est survenue. Veuillez réessayer.",
+          variant: 'destructive',
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Erreur lors de l'inscription",
+        description: "Impossible de contacter le serveur. Veuillez réessayer.",
+        variant: 'destructive',
+      });
+    } finally {
       setIsLoading(false);
-    }, 1000);
+    }
   };
 
   return (
