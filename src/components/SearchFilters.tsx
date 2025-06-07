@@ -2,13 +2,15 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
+import { Checkbox } from '@/components/ui/checkbox';
 import { Search } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { featuredProperties } from './FeaturedSection';
 
 const SearchFilters = () => {
+  // On passe location en tableau pour la sélection multiple
   const [filters, setFilters] = useState({
-    location: '',
+    locations: [], // tableau de destinations sélectionnées
     type: '',
     capacity: '',
     priceRange: ''
@@ -43,9 +45,37 @@ const SearchFilters = () => {
 
   const navigate = useNavigate();
 
+  // Gestion de la sélection multiple pour la destination
+  const handleDestinationChange = (dest: string) => {
+    if (filters.locations.includes(dest)) {
+      setFilters({ ...filters, locations: filters.locations.filter((d) => d !== dest) });
+    } else {
+      setFilters({ ...filters, locations: [...filters.locations, dest] });
+    }
+  };
+
+  // Gestion du bouton "Toutes les destinations"
+  const allSelected = filters.locations.length === destinationOptions.length;
+  const handleSelectAllDestinations = () => {
+    if (allSelected) {
+      setFilters({ ...filters, locations: [] });
+    } else {
+      setFilters({ ...filters, locations: [...destinationOptions] });
+    }
+  };
+
+  // Gestion des autres filtres avec option "Tous"
+  const handleSelectChange = (key: 'type' | 'capacity' | 'priceRange', value: string) => {
+    if (filters[key] === value || value === 'all') {
+      setFilters({ ...filters, [key]: '' });
+    } else {
+      setFilters({ ...filters, [key]: value });
+    }
+  };
+
   const handleSearch = () => {
     const params = new URLSearchParams();
-    if (filters.location) params.append('location', filters.location);
+    if (filters.locations.length > 0) params.append('locations', filters.locations.join(','));
     if (filters.type) params.append('type', filters.type);
     if (filters.capacity) params.append('capacity', filters.capacity);
     if (filters.priceRange) params.append('priceRange', filters.priceRange);
@@ -55,23 +85,26 @@ const SearchFilters = () => {
   return (
     <div className={`bg-background border border-border rounded-lg shadow-lg p-6 mx-4 md:mx-8 lg:mx-16 relative z-10 ${isHome ? '-mt-12' : 'mt-0'}`}>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 items-end">
-        {/* Destination Toggle */}
+        {/* Destination Multiple Checkbox */}
         <div className="lg:col-span-2">
           <label className="block text-sm font-medium text-foreground/80 mb-2">
             Destination
           </label>
-          <Select value={filters.location} onValueChange={(value) => setFilters({ ...filters, location: value })}>
-            <SelectTrigger>
-              <SelectValue placeholder="Choisissez une destination" />
-            </SelectTrigger>
-            <SelectContent>
-              {destinationOptions.map((dest: string) => (
-                <SelectItem key={dest} value={dest}>
-                  {dest}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <div className="flex flex-col gap-1 bg-muted/30 rounded-md p-3 border">
+            <label className="flex items-center gap-2 cursor-pointer mb-1">
+              <Checkbox checked={allSelected} onCheckedChange={handleSelectAllDestinations} />
+              <span className="text-sm">Toutes les destinations</span>
+            </label>
+            {destinationOptions.map((dest: string) => (
+              <label key={dest} className="flex items-center gap-2 cursor-pointer">
+                <Checkbox
+                  checked={filters.locations.includes(dest)}
+                  onCheckedChange={() => handleDestinationChange(dest)}
+                />
+                <span className="text-sm">{dest}</span>
+              </label>
+            ))}
+          </div>
         </div>
 
         {/* Type */}
@@ -79,11 +112,12 @@ const SearchFilters = () => {
           <label className="block text-sm font-medium text-foreground/80 mb-2">
             Type de logement
           </label>
-          <Select value={filters.type} onValueChange={(value) => setFilters({ ...filters, type: value })}>
+          <Select value={filters.type} onValueChange={(value) => handleSelectChange('type', value)}>
             <SelectTrigger>
               <SelectValue placeholder="Type" />
             </SelectTrigger>
             <SelectContent>
+              <SelectItem value="all">Tous</SelectItem>
               {accommodationTypes.map((type: string) => (
                 <SelectItem key={type} value={type}>
                   {type}
@@ -98,11 +132,12 @@ const SearchFilters = () => {
           <label className="block text-sm font-medium text-foreground/80 mb-2">
             Capacité
           </label>
-          <Select value={filters.capacity} onValueChange={(value) => setFilters({ ...filters, capacity: value })}>
+          <Select value={filters.capacity} onValueChange={(value) => handleSelectChange('capacity', value)}>
             <SelectTrigger>
               <SelectValue placeholder="Capacité" />
             </SelectTrigger>
             <SelectContent>
+              <SelectItem value="all">Toutes</SelectItem>
               {capacityOptions.map((n: number) => (
                 <SelectItem key={n} value={String(n)}>
                   {n} {n > 1 ? 'personnes' : 'personne'}
@@ -117,11 +152,12 @@ const SearchFilters = () => {
           <label className="block text-sm font-medium text-foreground/80 mb-2">
             Budget
           </label>
-          <Select value={filters.priceRange} onValueChange={(value) => setFilters({ ...filters, priceRange: value })}>
+          <Select value={filters.priceRange} onValueChange={(value) => handleSelectChange('priceRange', value)}>
             <SelectTrigger>
               <SelectValue placeholder="Prix" />
             </SelectTrigger>
             <SelectContent>
+              <SelectItem value="all">Tous</SelectItem>
               {priceRanges.map((range) => (
                 <SelectItem key={range} value={range}>
                   {range}
