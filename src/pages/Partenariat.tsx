@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
@@ -17,11 +16,43 @@ const Partenariat = () => {
     website: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Ici, on enverrait les données vers le backend
-    alert('Merci pour votre demande ! Nous vous contactons rapidement.');
+    try {
+      const response = await fetch('/api/partenariat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          nomComplet: formData.name,
+          email: formData.email,
+          telephone: formData.phone,
+          typeLogement: formData.propertyType,
+          localisation: formData.location,
+          siteWeb: formData.website,
+          description: formData.description
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Erreur lors de l\'envoi du formulaire');
+      }
+
+      alert('Merci pour votre demande ! Nous vous contacterons rapidement.');
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        propertyType: '',
+        location: '',
+        description: '',
+        website: ''
+      });
+    } catch (error) {
+      console.error('Erreur:', error);
+      alert('Une erreur est survenue lors de l\'envoi du formulaire. Veuillez réessayer.');
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
