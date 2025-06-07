@@ -1,7 +1,7 @@
 {
   "version": 2,
   "rewrites": [
-    { "source": "/api/newsletter", "destination": "/api/newsletter.js" }
+    { "source": "/api/newsletter", "destination": "/api/newsletter.cjs" }
   ],
   "headers": [
     {
@@ -33,7 +33,7 @@
       }
     },
     {
-      "src": "api/**/*.js",
+      "src": "api/**/*.cjs",
       "use": "@vercel/node@2.15.8"
     }
   ],
