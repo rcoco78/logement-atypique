@@ -336,7 +336,7 @@ const Partenariat = () => {
                       name="website"
                       value={formData.website}
                       onChange={handleChange}
-                      className="flex-1 px-3 py-2 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
+                      className="w-full px-3 py-2 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
                     />
                   </div>
                 </div>
