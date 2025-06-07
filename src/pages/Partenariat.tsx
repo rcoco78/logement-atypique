@@ -128,7 +128,7 @@ const Partenariat = () => {
     <div className="min-h-screen bg-background">
       <Header />
       
-      <main className="py-16 px-4 max-w-7xl mx-auto">
+      <main className="pt-40 px-4 max-w-7xl mx-auto">
         {/* Hero Section */}
         <div className="text-center mb-16">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">

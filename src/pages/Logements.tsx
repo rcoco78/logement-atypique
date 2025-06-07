@@ -8,7 +8,7 @@ const Logements = () => {
     <div className="min-h-screen bg-background">
       <Header />
       
-      <main className="py-16">
+      <main className="pt-40 pb-16">
         <div className="text-center mb-8 px-4">
           <h1 className="text-4xl md:text-5xl font-bold mb-6">
             Nos logements atypiques

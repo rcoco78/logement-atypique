@@ -7,7 +7,7 @@ const NotFound = () => {
   return (
     <div className="min-h-screen flex flex-col bg-background">
       <Header />
-      <main className="flex-1 flex flex-col items-center justify-center px-4">
+      <main className="pt-40 flex-1 flex flex-col items-center justify-center px-4">
         <div className="max-w-lg w-full text-center">
           <h1 className="text-6xl font-bold text-primary mb-4">404</h1>
           <h2 className="text-2xl font-semibold mb-4">Page introuvable</h2>
