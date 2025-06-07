@@ -21,8 +21,15 @@ const SearchFilters = () => {
     return loc ? loc.trim() : '';
   }))).filter(Boolean);
 
-  // Capacité dynamique à partir des logements (uniquement valeurs numériques)
-  const capacityOptions = Array.from(new Set(featuredProperties.map((p) => Number(p.capacity)))).filter((n) => !isNaN(n) && n > 0).sort((a, b) => a - b);
+  // Capacité dynamique à partir des logements (extraction du nombre depuis la string)
+  const capacityOptions = Array.from(new Set(featuredProperties.map((p) => {
+    if (typeof p.capacity === 'number') return p.capacity;
+    if (typeof p.capacity === 'string') {
+      const match = p.capacity.match(/\d+/);
+      return match ? Number(match[0]) : NaN;
+    }
+    return NaN;
+  }))).filter((n) => !isNaN(n) && n > 0).sort((a, b) => a - b);
   const priceRanges = ['< 100€', '100-200€', '200-300€', '300€+'];
 
   // Récupérer dynamiquement les destinations à partir des logements (avant la virgule)
