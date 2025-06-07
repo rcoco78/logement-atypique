@@ -13,12 +13,14 @@ const NewsletterSection = () => {
     setIsLoading(true);
 
     try {
+      const formData = new URLSearchParams();
+      formData.append('email', email);
       const response = await fetch('https://script.google.com/macros/s/AKfycbyAHGt4CAk5eNoXIgP-WlaImYNgyKsPW8kOetBpw1if5YU5_yLmgOp37B1z21U1NJAexA/exec', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify({ email }),
+        body: formData.toString(),
       });
       if (response.ok) {
         toast({
