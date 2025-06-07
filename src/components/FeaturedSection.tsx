@@ -175,9 +175,12 @@ const FeaturedSection = ({ limit }: { limit?: number }) => {
     if (params.get('type') && params.get('type') !== 'Tous les types') {
       if (property.type !== params.get('type')) return false;
     }
-    // Location
-    if (params.get('location') && params.get('location').trim() !== '') {
-      if (!property.location.toLowerCase().includes(params.get('location').toLowerCase())) return false;
+    // Multi-destinations
+    const locationsParam = params.get('locations');
+    if (locationsParam && locationsParam.trim() !== '') {
+      const selectedLocations = locationsParam.split(',').map((l) => l.trim().toLowerCase());
+      const propertyDestination = property.location.split(',')[0].trim().toLowerCase();
+      if (!selectedLocations.includes(propertyDestination)) return false;
     }
     // Capacity
     if (params.get('capacity') && params.get('capacity') !== '') {
