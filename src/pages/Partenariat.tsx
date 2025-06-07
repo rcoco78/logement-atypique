@@ -19,7 +19,7 @@ const Partenariat = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/partenariat', {
+      const response = await fetch('https://logement-atypique.vercel.app/api/partenariat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -36,7 +36,8 @@ const Partenariat = () => {
       });
 
       if (!response.ok) {
-        throw new Error('Erreur lors de l\'envoi du formulaire');
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Erreur lors de l\'envoi du formulaire');
       }
 
       alert('Merci pour votre demande ! Nous vous contacterons rapidement.');
