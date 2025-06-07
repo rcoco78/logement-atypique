@@ -30,11 +30,11 @@ const Partenariat = () => {
   };
 
   const phoneCountries = [
-    { code: 'FR', label: '+33 France' },
-    { code: 'BE', label: '+32 Belgique' },
-    { code: 'CH', label: '+41 Suisse' },
-    { code: 'LU', label: '+352 Luxembourg' },
-    { code: 'CA', label: '+1 Canada' },
+    { code: 'FR', label: '+33' },
+    { code: 'BE', label: '+32' },
+    { code: 'CH', label: '+41' },
+    { code: 'LU', label: '+352' },
+    { code: 'CA', label: '+1' },
   ];
 
   const handleSubmit = async (e: React.FormEvent) => {
