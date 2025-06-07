@@ -1,9 +1,18 @@
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
-const SearchFilters = ({ filters, setFilters }) => {
+const SearchFilters = () => {
+  const [filters, setFilters] = useState({
+    location: '',
+    type: '',
+    capacity: '',
+    priceRange: ''
+  });
+
   const accommodationTypes = [
     'Tous les types',
     'Cabane perchée',
@@ -17,6 +26,17 @@ const SearchFilters = ({ filters, setFilters }) => {
 
   const capacityOptions = ['1-2 personnes', '3-4 personnes', '5-6 personnes', '7+ personnes'];
   const priceRanges = ['< 100€', '100-200€', '200-300€', '300€+'];
+
+  const navigate = useNavigate();
+
+  const handleSearch = () => {
+    const params = new URLSearchParams();
+    if (filters.location) params.append('location', filters.location);
+    if (filters.type) params.append('type', filters.type);
+    if (filters.capacity) params.append('capacity', filters.capacity);
+    if (filters.priceRange) params.append('priceRange', filters.priceRange);
+    navigate(`/logements?${params.toString()}`);
+  };
 
   return (
     <div className="bg-background border border-border rounded-lg shadow-lg p-6 -mt-12 mx-4 md:mx-8 lg:mx-16 relative z-10">
@@ -96,7 +116,7 @@ const SearchFilters = ({ filters, setFilters }) => {
 
         {/* Search Button - dans la grille */}
         <div className="col-span-1 lg:col-span-1 flex justify-center lg:justify-end mt-4 lg:mt-0">
-          <Button size="lg" className="px-12 w-full lg:w-auto">
+          <Button size="lg" className="px-12 w-full lg:w-auto" onClick={handleSearch}>
             Rechercher
           </Button>
         </div>

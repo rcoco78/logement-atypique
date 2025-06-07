@@ -5,17 +5,11 @@ import { Play, Video } from 'lucide-react';
 import PropertyModal from './PropertyModal';
 import { Link, useLocation } from 'react-router-dom';
 
-interface Filters {
-  location: string;
-  type: string;
-  capacity: string;
-  priceRange: string;
-}
-
-const FeaturedSection = ({ limit, filters }: { limit?: number; filters?: Filters }) => {
+const FeaturedSection = ({ limit }: { limit?: number }) => {
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const location = useLocation();
+  const params = new URLSearchParams(location.search);
 
   const featuredProperties = [
     {
@@ -176,23 +170,34 @@ const FeaturedSection = ({ limit, filters }: { limit?: number; filters?: Filters
     }
   ];
 
-  let filteredProperties = featuredProperties;
-  if (filters && filters.location) {
-    filteredProperties = filteredProperties.filter(p => p.location.toLowerCase().includes(filters.location.toLowerCase()));
-  }
-  if (filters && filters.type && filters.type !== 'Tous les types') {
-    filteredProperties = filteredProperties.filter(p => p.type === filters.type);
-  }
-  if (filters && filters.capacity) {
-    filteredProperties = filteredProperties.filter(p => p.capacity === filters.capacity);
-  }
-  if (filters && filters.priceRange) {
-    if (filters.priceRange === '< 100€') filteredProperties = filteredProperties.filter(p => parseInt(p.price) < 100);
-    if (filters.priceRange === '100-200€') filteredProperties = filteredProperties.filter(p => parseInt(p.price) >= 100 && parseInt(p.price) <= 200);
-    if (filters.priceRange === '200-300€') filteredProperties = filteredProperties.filter(p => parseInt(p.price) > 200 && parseInt(p.price) <= 300);
-    if (filters.priceRange === '300€+') filteredProperties = filteredProperties.filter(p => parseInt(p.price) > 300);
-  }
-  const propertiesToShow = limit ? filteredProperties.slice(0, limit) : filteredProperties;
+  const filterByParams = (property) => {
+    // Type
+    if (params.get('type') && params.get('type') !== 'Tous les types') {
+      if (property.type !== params.get('type')) return false;
+    }
+    // Location
+    if (params.get('location') && params.get('location').trim() !== '') {
+      if (!property.location.toLowerCase().includes(params.get('location').toLowerCase())) return false;
+    }
+    // Capacity
+    if (params.get('capacity') && params.get('capacity') !== '') {
+      if (property.capacity !== params.get('capacity')) return false;
+    }
+    // Price Range
+    if (params.get('priceRange') && params.get('priceRange') !== '') {
+      const price = parseInt(property.price);
+      const range = params.get('priceRange');
+      if (range === '< 100€' && price >= 100) return false;
+      if (range === '100-200€' && (price < 100 || price > 200)) return false;
+      if (range === '200-300€' && (price < 200 || price > 300)) return false;
+      if (range === '300€+' && price < 300) return false;
+    }
+    return true;
+  };
+
+  const filteredProperties = (location.pathname === '/logements')
+    ? featuredProperties.filter(filterByParams)
+    : (limit ? featuredProperties.slice(0, limit) : featuredProperties);
 
   const handlePropertyClick = (property) => {
     setSelectedProperty(property);
@@ -209,7 +214,7 @@ const FeaturedSection = ({ limit, filters }: { limit?: number; filters?: Filters
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-        {propertiesToShow.map((property) => (
+        {filteredProperties.map((property) => (
           <div 
             key={property.id} 
             className="group cursor-pointer transform transition-all duration-300 hover:scale-105"
