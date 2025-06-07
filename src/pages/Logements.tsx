@@ -1,17 +1,9 @@
-import { useState } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import FeaturedSection from '@/components/FeaturedSection';
 import SearchFilters from '@/components/SearchFilters';
 
 const Logements = () => {
-  const [filters, setFilters] = useState({
-    location: '',
-    type: '',
-    capacity: '',
-    priceRange: ''
-  });
-
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -25,9 +17,10 @@ const Logements = () => {
             Découvrez notre sélection de logements d'exception, chacun filmé en vidéo pour vous offrir une immersion totale avant votre réservation.
           </p>
         </div>
-        
-        <SearchFilters filters={filters} setFilters={setFilters} />
-        <FeaturedSection filters={filters} />
+        <div className="mb-12">
+          <SearchFilters />
+        </div>
+        <FeaturedSection />
       </main>
 
       <Footer />

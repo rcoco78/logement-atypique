@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { featuredProperties } from './FeaturedSection';
 
 const SearchFilters = () => {
@@ -13,6 +13,9 @@ const SearchFilters = () => {
     capacity: '',
     priceRange: ''
   });
+
+  const locationHook = useLocation();
+  const isHome = locationHook.pathname === '/';
 
   // Récupérer dynamiquement les types et régions à partir des logements
   const accommodationTypes = Array.from(new Set(featuredProperties.map((p) => p.type))).filter(Boolean);
@@ -50,7 +53,7 @@ const SearchFilters = () => {
   };
 
   return (
-    <div className="bg-background border border-border rounded-lg shadow-lg p-6 -mt-12 mx-4 md:mx-8 lg:mx-16 relative z-10">
+    <div className={`bg-background border border-border rounded-lg shadow-lg p-6 mx-4 md:mx-8 lg:mx-16 relative z-10 ${isHome ? '-mt-12' : 'mt-0'}`}>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 items-end">
         {/* Destination Toggle */}
         <div className="lg:col-span-2">
