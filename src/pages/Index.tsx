@@ -10,8 +10,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
+      <HeroSection />
       <main className="py-16 px-4 max-w-7xl mx-auto">
-        <HeroSection />
         <SearchFilters />
         <FeaturedSection limit={4} />
         <StatsSection />
