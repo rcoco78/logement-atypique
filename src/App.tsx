@@ -11,6 +11,7 @@ import Blog from './pages/Blog';
 import Article from './pages/Article';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import GoogleAnalytics from './components/GoogleAnalytics';
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <GoogleAnalytics />
         <Header />
         <Routes>
           <Route path="/" element={<Index />} />
