@@ -29,6 +29,14 @@ const Partenariat = () => {
     CA: { pattern: /^(?:(?:\+|00)1|0)\s*[2-9]\d{2}(?:[\s.-]*\d{3}){2}$/, placeholder: '514 123 4567', example: '514 123 4567' }
   };
 
+  const phoneCountries = [
+    { code: 'FR', label: '🇫🇷 +33 France' },
+    { code: 'BE', label: '🇧🇪 +32 Belgique' },
+    { code: 'CH', label: '🇨🇭 +41 Suisse' },
+    { code: 'LU', label: '🇱🇺 +352 Luxembourg' },
+    { code: 'CA', label: '🇨🇦 +1 Canada' },
+  ];
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
@@ -295,15 +303,15 @@ const Partenariat = () => {
                         value={formData.phoneCountry}
                         onValueChange={value => handleChange({ target: { name: 'phoneCountry', value } } as any)}
                       >
-                        <SelectTrigger className="w-24 bg-white">
-                          <SelectValue />
+                        <SelectTrigger className="w-40 bg-white">
+                          <SelectValue>
+                            {phoneCountries.find(c => c.code === formData.phoneCountry)?.label || 'Pays'}
+                          </SelectValue>
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="FR">+33</SelectItem>
-                          <SelectItem value="BE">+32</SelectItem>
-                          <SelectItem value="CH">+41</SelectItem>
-                          <SelectItem value="LU">+352</SelectItem>
-                          <SelectItem value="CA">+1</SelectItem>
+                          {phoneCountries.map(c => (
+                            <SelectItem key={c.code} value={c.code}>{c.label}</SelectItem>
+                          ))}
                         </SelectContent>
                       </Select>
                       <input
