@@ -20,7 +20,9 @@ const Header = () => {
   }, [open]);
   return (
     <div className="fixed top-0 left-0 right-0 z-50 pt-6 flex justify-center">
-      <div className={`w-full max-w-full md:max-w-7xl mx-2 md:mx-auto bg-[#f8f5ff]/80 border border-border transition-all duration-200 overflow-hidden ${open ? 'rounded-[2rem]' : 'rounded-t-[2rem] rounded-b-none'}`}>
+      <div className={`w-full max-w-full md:max-w-7xl mx-2 md:mx-auto bg-[#f8f5ff]/80 border border-border transition-all duration-200 overflow-hidden ${open ? 'rounded-t-[2rem] rounded-b-none md:rounded-[2rem]' : 'rounded-[2rem]'}`}
+        style={{ borderRadius: '2rem' }}
+      >
         <header
           className={`px-2 md:px-4 ${open ? 'rounded-t-2xl rounded-b-none' : 'rounded-full'} md:rounded-full md:rounded-b-full bg-transparent border-none transition-all duration-200`}
         >
@@ -42,7 +44,7 @@ const Header = () => {
             </nav>
 
             {/* Bouton à droite desktop + mobile + burger mobile */}
-            <div className="flex items-center gap-2 pr-4 w-auto">
+            <div className="flex items-center gap-2 w-auto">
               {/* Mobile : bouton à droite */}
               <Link to="/partenariat" className="block md:hidden">
                 <Button className="rounded-full px-6 py-2 text-white bg-primary hover:bg-primary/90 text-base font-semibold shadow-md">
