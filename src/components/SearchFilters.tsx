@@ -4,6 +4,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { featuredProperties } from './FeaturedSection';
 
 const SearchFilters = () => {
   const [filters, setFilters] = useState({
@@ -13,16 +14,12 @@ const SearchFilters = () => {
     priceRange: ''
   });
 
-  const accommodationTypes = [
-    'Tous les types',
-    'Cabane perchée',
-    'Loft d\'architecte',
-    'Maison de verre',
-    'Bulle transparente',
-    'Roulotte',
-    'Tiny house',
-    'Chalet design'
-  ];
+  // Récupérer dynamiquement les types et régions à partir des logements
+  const accommodationTypes = Array.from(new Set(featuredProperties.map((p) => p.type))).filter(Boolean);
+  const regionOptions = Array.from(new Set(featuredProperties.map((p) => {
+    const loc = p.location.split(',').pop();
+    return loc ? loc.trim() : '';
+  }))).filter(Boolean);
 
   const capacityOptions = ['1-2 personnes', '3-4 personnes', '5-6 personnes', '7+ personnes'];
   const priceRanges = ['< 100€', '100-200€', '200-300€', '300€+'];
@@ -41,20 +38,23 @@ const SearchFilters = () => {
   return (
     <div className="bg-background border border-border rounded-lg shadow-lg p-6 -mt-12 mx-4 md:mx-8 lg:mx-16 relative z-10">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 items-end">
-        {/* Location */}
+        {/* Region Toggle */}
         <div className="lg:col-span-2">
           <label className="block text-sm font-medium text-foreground/80 mb-2">
-            Destination
+            Région
           </label>
-          <div className="relative">
-            <Search className="absolute left-3 top-3 h-5 w-5 text-muted-foreground" />
-            <Input
-              placeholder="Où souhaitez-vous aller ?"
-              value={filters.location}
-              onChange={(e) => setFilters({ ...filters, location: e.target.value })}
-              className="pl-10"
-            />
-          </div>
+          <Select value={filters.location} onValueChange={(value) => setFilters({ ...filters, location: value })}>
+            <SelectTrigger>
+              <SelectValue placeholder="Choisissez une région" />
+            </SelectTrigger>
+            <SelectContent>
+              {regionOptions.map((region: string) => (
+                <SelectItem key={region} value={region}>
+                  {region}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
         </div>
 
         {/* Type */}
@@ -67,7 +67,7 @@ const SearchFilters = () => {
               <SelectValue placeholder="Type" />
             </SelectTrigger>
             <SelectContent>
-              {accommodationTypes.map((type) => (
+              {accommodationTypes.map((type: string) => (
                 <SelectItem key={type} value={type}>
                   {type}
                 </SelectItem>
