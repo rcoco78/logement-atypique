@@ -12,9 +12,9 @@ const Index = () => {
       <HeroSection />
       <SearchFilters />
       <main className="py-16 px-4 max-w-7xl mx-auto">
-        <FeaturedSection limit={4} />
-        <StatsSection />
-        <NewsletterSection />
+      <FeaturedSection limit={4} />
+      <StatsSection />
+      <NewsletterSection />
       </main>
     </div>
   );
