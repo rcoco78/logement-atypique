@@ -19,7 +19,7 @@ const Partenariat = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch('https://logement-atypique.vercel.app/api/partenariat', {
+      const response = await fetch('/api/partenariat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
