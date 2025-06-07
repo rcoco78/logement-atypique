@@ -17,7 +17,7 @@ const Header = () => {
               <polygon points="16,6 4,16 6,18 16,10 26,18 28,16" fill="#D4A574"/>
               <rect x="13" y="20" width="6" height="6" rx="1" fill="#FEFCFA"/>
             </svg>
-            <span className="font-bold text-lg" style={{ color: '#885d3f' }}>logement insolite</span>
+            <span className="font-bold text-lg" style={{ color: '#885d3f' }}>logement atypique</span>
           </Link>
 
           {/* Liens centraux */}
