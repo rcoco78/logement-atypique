@@ -7,6 +7,7 @@ import { Search } from 'lucide-react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { featuredProperties } from './FeaturedSection';
 import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
+import { MultiSelect } from '@/components/ui/MultiSelect';
 
 const SearchFilters = () => {
   // On passe location en tableau pour la sélection multiple
@@ -86,40 +87,17 @@ const SearchFilters = () => {
   return (
     <div className={`bg-background border border-border rounded-lg shadow-lg p-6 mx-4 md:mx-8 lg:mx-16 relative z-10 ${isHome ? '-mt-12' : 'mt-0'}`}>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 items-end">
-        {/* Destination Multiple ToggleGroup */}
+        {/* Destination MultiSelect */}
         <div className="lg:col-span-2">
           <label className="block text-sm font-medium text-foreground/80 mb-2">
             Destination
           </label>
-          <ToggleGroup
-            type="multiple"
+          <MultiSelect
+            options={destinationOptions.map((d) => ({ label: d, value: d }))}
             value={filters.locations}
-            onValueChange={(values) => setFilters({ ...filters, locations: values })}
-            className="flex flex-wrap gap-2 bg-muted/30 rounded-md p-3 border"
-          >
-            <ToggleGroupItem
-              value="all"
-              className={`px-3 py-2 rounded-md text-sm font-medium border ${filters.locations.length === destinationOptions.length ? 'bg-primary text-primary-foreground' : 'bg-background text-foreground'}`}
-              onClick={() => {
-                if (filters.locations.length === destinationOptions.length) {
-                  setFilters({ ...filters, locations: [] });
-                } else {
-                  setFilters({ ...filters, locations: [...destinationOptions] });
-                }
-              }}
-            >
-              Toutes les destinations
-            </ToggleGroupItem>
-            {destinationOptions.map((dest: string) => (
-              <ToggleGroupItem
-                key={dest}
-                value={dest}
-                className="px-3 py-2 rounded-md text-sm font-medium border"
-              >
-                {dest}
-              </ToggleGroupItem>
-            ))}
-          </ToggleGroup>
+            onChange={(values) => setFilters({ ...filters, locations: values })}
+            placeholder="Destination(s)"
+          />
         </div>
 
         {/* Type */}
