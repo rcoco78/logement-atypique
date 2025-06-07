@@ -75,13 +75,13 @@ const HeroSection = () => {
           <div className="space-y-4 sm:space-y-0 sm:space-x-4 sm:flex sm:justify-center animate-fade-in">
             <Link to="/logements">
               <Button size="lg" variant="white" className="text-lg px-8 py-3">
-                Découvrir nos lieux
-              </Button>
+              Découvrir nos lieux
+            </Button>
             </Link>
             <Link to="/partenariat">
               <Button size="lg" variant="brown" className="text-lg px-8 py-3">
-                Proposer votre logement
-              </Button>
+              Proposer votre logement
+            </Button>
             </Link>
           </div>
         </div>

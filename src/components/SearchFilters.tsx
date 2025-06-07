@@ -97,7 +97,7 @@ const SearchFilters = () => {
             value={filters.locations}
             onChange={(values) => setFilters({ ...filters, locations: values })}
             placeholder="Destination(s)"
-          />
+            />
         </div>
 
         {/* Type */}
