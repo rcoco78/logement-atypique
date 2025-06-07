@@ -12,7 +12,7 @@ interface Filters {
   priceRange: string;
 }
 
-const FeaturedSection = ({ limit, filters = { location: '', type: '', capacity: '', priceRange: '' } }: { limit?: number; filters?: Filters }) => {
+const FeaturedSection = ({ limit, filters }: { limit?: number; filters?: Filters }) => {
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const location = useLocation();
@@ -177,16 +177,16 @@ const FeaturedSection = ({ limit, filters = { location: '', type: '', capacity: 
   ];
 
   let filteredProperties = featuredProperties;
-  if (filters.location) {
+  if (filters && filters.location) {
     filteredProperties = filteredProperties.filter(p => p.location.toLowerCase().includes(filters.location.toLowerCase()));
   }
-  if (filters.type && filters.type !== 'Tous les types') {
+  if (filters && filters.type && filters.type !== 'Tous les types') {
     filteredProperties = filteredProperties.filter(p => p.type === filters.type);
   }
-  if (filters.capacity) {
+  if (filters && filters.capacity) {
     filteredProperties = filteredProperties.filter(p => p.capacity === filters.capacity);
   }
-  if (filters.priceRange) {
+  if (filters && filters.priceRange) {
     if (filters.priceRange === '< 100€') filteredProperties = filteredProperties.filter(p => parseInt(p.price) < 100);
     if (filters.priceRange === '100-200€') filteredProperties = filteredProperties.filter(p => parseInt(p.price) >= 100 && parseInt(p.price) <= 200);
     if (filters.priceRange === '200-300€') filteredProperties = filteredProperties.filter(p => parseInt(p.price) > 200 && parseInt(p.price) <= 300);
