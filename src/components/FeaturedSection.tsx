@@ -181,7 +181,13 @@ const FeaturedSection = ({ limit }: { limit?: number }) => {
     }
     // Capacity
     if (params.get('capacity') && params.get('capacity') !== '') {
-      if (property.capacity !== params.get('capacity')) return false;
+      const filterCap = Number(params.get('capacity'));
+      let propCap = property.capacity;
+      if (typeof propCap === 'string') {
+        const match = propCap.match(/\d+/);
+        propCap = match ? Number(match[0]) : NaN;
+      }
+      if (typeof propCap !== 'number' || isNaN(propCap) || propCap !== filterCap) return false;
     }
     // Price Range
     if (params.get('priceRange') && params.get('priceRange') !== '') {
