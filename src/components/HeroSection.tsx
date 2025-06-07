@@ -64,7 +64,7 @@ const HeroSection = () => {
       </div>
 
       {/* Content Overlay */}
-      <div className="absolute inset-0 flex items-center justify-center">
+      <div className="absolute inset-0 flex items-center justify-center h-full">
         <div className="text-center text-white max-w-4xl px-4">
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 animate-fade-in">
             Logements atypiques
@@ -74,32 +74,13 @@ const HeroSection = () => {
           </p>
           <div className="space-y-4 sm:space-y-0 sm:space-x-4 sm:flex sm:justify-center animate-fade-in">
             <Link to="/logements">
-              <Button size="lg" variant="white" className="text-lg px-8 py-3 hidden sm:inline-flex">
+              <Button size="lg" variant="white" className="text-lg px-8 py-3 hidden sm:inline-flex border-0">
               Découvrir nos lieux
-            </Button>
-            </Link>
-            <Link to="/partenariat">
-              <Button size="lg" variant="brown" className="text-lg px-8 py-3 hidden sm:inline-flex">
-              Proposer votre logement
             </Button>
             </Link>
           </div>
         </div>
       </div>
-
-      {/* Navigation Arrows */}
-      <button
-        onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/20 hover:bg-white/30 transition-colors"
-      >
-        <ChevronLeft className="h-6 w-6 text-white" />
-      </button>
-      <button
-        onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 p-2 rounded-full bg-white/20 hover:bg-white/30 transition-colors"
-      >
-        <ChevronRight className="h-6 w-6 text-white" />
-      </button>
 
       {/* Slide Indicators */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex space-x-2">
