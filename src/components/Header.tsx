@@ -1,5 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
+import { Menu } from 'lucide-react';
+import { Drawer, DrawerTrigger, DrawerContent } from '@/components/ui/drawer';
 
 const Header = () => {
   return (
@@ -22,13 +24,34 @@ const Header = () => {
             <Link to="/blog" className="text-foreground/80 hover:text-primary transition-colors font-medium">Blog</Link>
           </nav>
 
-          {/* Bouton à droite */}
+          {/* Bouton à droite desktop + burger mobile */}
           <div className="flex items-center gap-2 pr-4">
-            <Link to="/partenariat">
+            {/* Desktop : bouton */}
+            <Link to="/partenariat" className="hidden md:block">
               <Button className="rounded-full px-6 py-2 text-white bg-primary hover:bg-primary/90 text-base font-semibold shadow-md">
                 Proposer votre logement
               </Button>
             </Link>
+            {/* Mobile : burger menu */}
+            <Drawer>
+              <DrawerTrigger asChild>
+                <button className="md:hidden p-2 rounded-full hover:bg-muted focus:outline-none focus:ring-2 focus:ring-primary">
+                  <Menu className="w-7 h-7" />
+                  <span className="sr-only">Ouvrir le menu</span>
+                </button>
+              </DrawerTrigger>
+              <DrawerContent>
+                <div className="flex flex-col gap-6 py-8 px-6">
+                  <Link to="/logements" className="text-lg font-medium text-foreground/90 hover:text-primary transition-colors">Logements</Link>
+                  <Link to="/blog" className="text-lg font-medium text-foreground/90 hover:text-primary transition-colors">Blog</Link>
+                  <Link to="/partenariat">
+                    <Button className="w-full rounded-full px-6 py-2 text-white bg-primary hover:bg-primary/90 text-base font-semibold shadow-md mt-4">
+                      Proposer votre logement
+                    </Button>
+                  </Link>
+                </div>
+              </DrawerContent>
+            </Drawer>
           </div>
         </div>
       </header>
