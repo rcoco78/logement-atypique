@@ -291,18 +291,21 @@ const Partenariat = () => {
                       Téléphone *
                     </label>
                     <div className="flex gap-2 md:max-w-sm w-full">
-                      <select
-                        name="phoneCountry"
+                      <Select
                         value={formData.phoneCountry}
-                        onChange={handleChange}
-                        className="w-24 px-3 py-2 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
+                        onValueChange={value => handleChange({ target: { name: 'phoneCountry', value } } as any)}
                       >
-                        <option value="FR">+33</option>
-                        <option value="BE">+32</option>
-                        <option value="CH">+41</option>
-                        <option value="LU">+352</option>
-                        <option value="CA">+1</option>
-                      </select>
+                        <SelectTrigger className="w-24 bg-white">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="FR">+33</SelectItem>
+                          <SelectItem value="BE">+32</SelectItem>
+                          <SelectItem value="CH">+41</SelectItem>
+                          <SelectItem value="LU">+352</SelectItem>
+                          <SelectItem value="CA">+1</SelectItem>
+                        </SelectContent>
+                      </Select>
                       <input
                         type="tel"
                         id="phone"
