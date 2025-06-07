@@ -25,7 +25,7 @@ const NewsletterSection = () => {
       const text = await response.text();
       if (response.ok && text.includes('OK')) {
         toast({
-          title: "Inscription réussie !",
+          title: "Merci, vous êtes bien inscrit à la newsletter !",
           description: "Vous recevrez nos dernières découvertes directement dans votre boîte mail.",
         });
         setEmail('');
