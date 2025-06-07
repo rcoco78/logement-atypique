@@ -289,7 +289,7 @@ const FeaturedSection = ({ limit }: { limit?: number }) => {
 
       {location.pathname !== '/' && (
         <div className="flex flex-col items-center mt-8">
-          <div className="border-2 border-[#8B5A3C] rounded-xl p-6 bg-white/80 shadow-md max-w-md w-full">
+          <div className="border-2 border-[#8B5A3C] rounded-xl p-6 bg-white shadow-md w-full max-w-xl md:w-2/3">
             <Link to="/partenariat">
               <Button size="lg" variant="white" className="w-full font-semibold">
                 Proposer un logement atypique
