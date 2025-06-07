@@ -11,6 +11,7 @@ const Partenariat = () => {
     name: '',
     email: '',
     phone: '',
+    phoneCountry: 'FR',
     propertyType: '',
     location: '',
     description: '',
@@ -18,6 +19,14 @@ const Partenariat = () => {
   });
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
+
+  const phonePatterns = {
+    FR: { pattern: /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/, placeholder: '06 12 34 56 78', example: '06 12 34 56 78' },
+    BE: { pattern: /^(?:(?:\+|00)32|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/, placeholder: '0475 12 34 56', example: '0475 12 34 56' },
+    CH: { pattern: /^(?:(?:\+|00)41|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/, placeholder: '076 123 45 67', example: '076 123 45 67' },
+    LU: { pattern: /^(?:(?:\+|00)352|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/, placeholder: '621 123 456', example: '621 123 456' },
+    CA: { pattern: /^(?:(?:\+|00)1|0)\s*[2-9]\d{2}(?:[\s.-]*\d{3}){2}$/, placeholder: '514 123 4567', example: '514 123 4567' }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -35,12 +44,12 @@ const Partenariat = () => {
       return;
     }
 
-    // Validation du téléphone (format français)
-    const phoneRegex = /^(?:(?:\+|00)33|0)\s*[1-9](?:[\s.-]*\d{2}){4}$/;
-    if (!phoneRegex.test(formData.phone)) {
+    // Validation du téléphone selon le pays
+    const phonePattern = phonePatterns[formData.phoneCountry as keyof typeof phonePatterns];
+    if (!phonePattern.pattern.test(formData.phone)) {
       toast({
         title: "Format de téléphone invalide",
-        description: "Veuillez entrer un numéro de téléphone français valide (ex: 06 12 34 56 78).",
+        description: `Veuillez entrer un numéro de téléphone valide (ex: ${phonePattern.example}).`,
         variant: 'destructive',
       });
       setIsLoading(false);
@@ -57,6 +66,7 @@ const Partenariat = () => {
           nomComplet: formData.name,
           email: formData.email,
           telephone: formData.phone,
+          telephonePays: formData.phoneCountry,
           typeLogement: formData.propertyType,
           localisation: formData.location,
           siteWeb: formData.website,
@@ -74,6 +84,7 @@ const Partenariat = () => {
           name: '',
           email: '',
           phone: '',
+          phoneCountry: 'FR',
           propertyType: '',
           location: '',
           description: '',
@@ -278,17 +289,33 @@ const Partenariat = () => {
                     <label htmlFor="phone" className="block text-sm font-medium mb-2">
                       Téléphone *
                     </label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      required
-                      placeholder="06 12 34 56 78"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      className="w-full px-3 py-2 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
-                    />
-                    <p className="text-xs text-muted-foreground mt-1">Format: 06 12 34 56 78</p>
+                    <div className="flex gap-2">
+                      <select
+                        name="phoneCountry"
+                        value={formData.phoneCountry}
+                        onChange={handleChange}
+                        className="w-24 px-3 py-2 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
+                      >
+                        <option value="FR">+33</option>
+                        <option value="BE">+32</option>
+                        <option value="CH">+41</option>
+                        <option value="LU">+352</option>
+                        <option value="CA">+1</option>
+                      </select>
+                      <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        required
+                        placeholder={phonePatterns[formData.phoneCountry as keyof typeof phonePatterns].placeholder}
+                        value={formData.phone}
+                        onChange={handleChange}
+                        className="flex-1 px-3 py-2 border border-input rounded-md focus:outline-none focus:ring-2 focus:ring-ring"
+                      />
+                    </div>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      Format: {phonePatterns[formData.phoneCountry as keyof typeof phonePatterns].example}
+                    </p>
                   </div>
                   <div>
                     <label htmlFor="website" className="block text-sm font-medium mb-2">
