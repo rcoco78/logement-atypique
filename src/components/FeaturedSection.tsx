@@ -5,7 +5,14 @@ import { Play, Video } from 'lucide-react';
 import PropertyModal from './PropertyModal';
 import { Link, useLocation } from 'react-router-dom';
 
-const FeaturedSection = ({ limit }: { limit?: number }) => {
+interface Filters {
+  location: string;
+  type: string;
+  capacity: string;
+  priceRange: string;
+}
+
+const FeaturedSection = ({ limit, filters = { location: '', type: '', capacity: '', priceRange: '' } }: { limit?: number; filters?: Filters }) => {
   const [selectedProperty, setSelectedProperty] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const location = useLocation();
@@ -169,7 +176,23 @@ const FeaturedSection = ({ limit }: { limit?: number }) => {
     }
   ];
 
-  const propertiesToShow = limit ? featuredProperties.slice(0, limit) : featuredProperties;
+  let filteredProperties = featuredProperties;
+  if (filters.location) {
+    filteredProperties = filteredProperties.filter(p => p.location.toLowerCase().includes(filters.location.toLowerCase()));
+  }
+  if (filters.type && filters.type !== 'Tous les types') {
+    filteredProperties = filteredProperties.filter(p => p.type === filters.type);
+  }
+  if (filters.capacity) {
+    filteredProperties = filteredProperties.filter(p => p.capacity === filters.capacity);
+  }
+  if (filters.priceRange) {
+    if (filters.priceRange === '< 100€') filteredProperties = filteredProperties.filter(p => parseInt(p.price) < 100);
+    if (filters.priceRange === '100-200€') filteredProperties = filteredProperties.filter(p => parseInt(p.price) >= 100 && parseInt(p.price) <= 200);
+    if (filters.priceRange === '200-300€') filteredProperties = filteredProperties.filter(p => parseInt(p.price) > 200 && parseInt(p.price) <= 300);
+    if (filters.priceRange === '300€+') filteredProperties = filteredProperties.filter(p => parseInt(p.price) > 300);
+  }
+  const propertiesToShow = limit ? filteredProperties.slice(0, limit) : filteredProperties;
 
   const handlePropertyClick = (property) => {
     setSelectedProperty(property);

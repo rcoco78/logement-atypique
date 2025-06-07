@@ -1,17 +1,9 @@
-import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
 
-const SearchFilters = () => {
-  const [filters, setFilters] = useState({
-    location: '',
-    type: '',
-    capacity: '',
-    priceRange: ''
-  });
-
+const SearchFilters = ({ filters, setFilters }) => {
   const accommodationTypes = [
     'Tous les types',
     'Cabane perchée',
