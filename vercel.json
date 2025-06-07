@@ -28,7 +28,8 @@
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "distDir": "dist"
+        "distDir": "dist",
+        "buildCommand": "yarn install && yarn build"
       }
     },
     {
