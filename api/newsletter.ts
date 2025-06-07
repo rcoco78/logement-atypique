@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { google } from 'googleapis';
 
-export default async function handler(req: VercelRequest, res: VercelResponse) {
+const handler = async (req: VercelRequest, res: VercelResponse) => {
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Méthode non autorisée' });
   }
@@ -52,4 +52,6 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       details: err instanceof Error ? err.message : 'Erreur inconnue'
     });
   }
-} 
+};
+
+export default handler; 
