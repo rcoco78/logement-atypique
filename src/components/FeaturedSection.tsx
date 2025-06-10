@@ -252,7 +252,7 @@ const FeaturedSection = ({ limit }: { limit?: number }) => {
         {filteredProperties.map((property) => (
           <div 
             key={property.id} 
-            className={`group cursor-pointer transform transition-all duration-300 hover:scale-105 ${location.pathname === '/logements' ? 'border border-gray-200 shadow-sm rounded-xl px-2 bg-white' : ''}`}
+            className="group cursor-pointer transform transition-all duration-300 hover:scale-105 mx-3 md:mx-0"
             onClick={() => handlePropertyClick(property)}
           >
             <div className="relative overflow-hidden rounded-lg mb-4">
@@ -260,6 +260,7 @@ const FeaturedSection = ({ limit }: { limit?: number }) => {
                 src={property.image}
                 alt={property.title}
                 className="w-full aspect-[4/5] md:aspect-[9/16] object-cover transition-transform duration-500 group-hover:scale-110 rounded-lg"
+                style={{ border: 'none', boxShadow: 'none' }}
               />
               <div className="absolute top-4 left-4 space-y-2">
                 {property.featured && (
