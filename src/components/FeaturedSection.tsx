@@ -10,26 +10,52 @@ export const featuredProperties = [
       id: 1,
       title: "Tiny House sur la Côte Atlantique",
       location: "Île d'Oléron, France",
+      region: "Nouvelle-Aquitaine",
       price: "120€",
+      priceRange: "100 - 150€",
       image: "https://resize.elle.fr/article/var/plain_site/storage/images/deco/pieces/petits-espaces/tiny-house-des-petits-espaces-ultra-inspirants/tiny-house-sur-la-plage/93710601-1-fre-FR/Tiny-house-sur-la-plage.jpg",
+      images: [
+        "https://resize.elle.fr/article/var/plain_site/storage/images/deco/pieces/petits-espaces/tiny-house-des-petits-espaces-ultra-inspirants/tiny-house-sur-la-plage/93710601-1-fre-FR/Tiny-house-sur-la-plage.jpg",
+        "https://images.unsplash.com/photo-1506744038136-46273834b3fb",
+        "https://images.unsplash.com/photo-1465101046530-73398c7f28ca"
+      ],
       type: "Tiny house",
       capacity: "2 personnes",
+      bedInfo: "1 lit double",
       featured: true,
       description: "Une tiny house écologique à deux pas de l'océan, idéale pour une escapade minimaliste et ressourçante.",
       amenities: ['Vue mer', 'Terrasse', 'Cuisine équipée', 'Vélos à disposition'],
-      videoUrl: "#"
+      meals: "Petit déjeuner",
+      kitchen: true,
+      internet: true,
+      petsAllowed: false,
+      nearbyRestaurants: false,
+      videoUrl: "https://youtube.com/shorts/WEeNQ4oiMKc?si=4M3SvjXzSSHfja2v"
     },
     {
       id: 2,
       title: "Yourte mongole authentique",
       location: "Massif central, France",
+      region: "Auvergne-Rhône-Alpes",
       price: "90€",
+      priceRange: "80 - 120€",
       image: "https://images.surferseo.art/f1ee3ca8-a6ab-4917-b0d5-e6b62c8f80e4.jpeg",
+      images: [
+        "https://images.surferseo.art/f1ee3ca8-a6ab-4917-b0d5-e6b62c8f80e4.jpeg",
+        "https://images.unsplash.com/photo-1465101178521-c1a9136a3b99",
+        "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429"
+      ],
       type: "Yourte",
       capacity: "4 personnes",
+      bedInfo: "2 lits doubles",
       featured: false,
       description: "Vivez l'expérience nomade dans une yourte traditionnelle, au cœur de la nature sauvage.",
       amenities: ['Poêle à bois', 'Lits confortables', 'Randonnées', 'Ciel étoilé'],
+      meals: "Petit déjeuner",
+      kitchen: false,
+      internet: false,
+      petsAllowed: true,
+      nearbyRestaurants: true,
       videoUrl: "#"
     },
     {
@@ -43,7 +69,7 @@ export const featuredProperties = [
       featured: true,
       description: "Dormez dans une maison soucoupe au design unique, perchée face aux montagnes.",
       amenities: ['Vue panoramique', 'Design unique', 'Jacuzzi', 'Petit-déjeuner inclus'],
-      videoUrl: "#"
+      videoUrl: "https://youtube.com/shorts/WEeNQ4oiMKc?si=4M3SvjXzSSHfja2v"
     },
     {
       id: 4,
@@ -82,7 +108,7 @@ export const featuredProperties = [
       featured: true,
       description: "Une cabane perchée dans les arbres, avec terrasse surplombant un lac paisible.",
       amenities: ['Terrasse', 'Vue lac', 'Petit-déjeuner', 'Canoë'],
-      videoUrl: "#"
+      videoUrl: "https://youtube.com/shorts/WEeNQ4oiMKc?si=4M3SvjXzSSHfja2v"
     },
     {
       id: 7,
@@ -233,7 +259,7 @@ const FeaturedSection = ({ limit }: { limit?: number }) => {
               <img
                 src={property.image}
                 alt={property.title}
-                className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110"
+                className="w-full aspect-[4/5] md:aspect-[9/16] object-cover transition-transform duration-500 group-hover:scale-110 rounded-lg"
               />
               <div className="absolute top-4 left-4 space-y-2">
                 {property.featured && (
@@ -259,11 +285,6 @@ const FeaturedSection = ({ limit }: { limit?: number }) => {
                   <Video className="h-3 w-3" />
                   Vidéo
                 </Badge>
-              </div>
-              
-              <div className="absolute bottom-4 right-4 bg-background/90 backdrop-blur-sm rounded-lg px-3 py-1">
-                <span className="font-semibold text-lg">{property.price}</span>
-                <span className="text-sm text-muted-foreground">/nuit</span>
               </div>
             </div>
             <div>

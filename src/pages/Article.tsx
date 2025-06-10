@@ -31,6 +31,16 @@ const fakeArticles = [
     category: "Conseils",
     excerpt: "Préparez votre escapade atypique avec nos astuces pratiques et nos bonnes adresses.",
     content: `Pour un week-end insolite réussi, anticipez la météo, prévoyez des activités adaptées et laissez-vous surprendre par l'inattendu.\n\nN'hésitez pas à consulter les avis et à contacter les hôtes pour personnaliser votre séjour.`
+  },
+  {
+    id: '4',
+    title: "Dormir dans un phare : une nuit au bout du monde",
+    cover: "https://www.ouest-france.fr/images/2023/07/10/une-nuit-dans-un-phare.jpg",
+    date: "2024-06-10",
+    author: "Sophie Lemoine",
+    category: "Expérience",
+    excerpt: "Vivez l'aventure unique d'une nuit dans un phare, entre ciel et mer.",
+    content: `Passer la nuit dans un phare, c'est s'offrir un moment hors du temps, bercé par le bruit des vagues et le souffle du vent. Ces hébergements rares offrent une vue imprenable et une expérience inoubliable pour les amoureux de la mer.\n\nRéservez tôt, car les places sont limitées et très recherchées !`
   }
 ];
 

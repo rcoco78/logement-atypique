@@ -40,7 +40,6 @@ const Header = () => {
             {/* Liens centraux desktop */}
             <nav className="hidden md:flex items-center gap-8 mx-auto">
               <Link to="/logements" className="text-foreground/80 hover:text-primary transition-colors font-medium">Logements</Link>
-              <Link to="/blog" className="text-foreground/80 hover:text-primary transition-colors font-medium">Blog</Link>
             </nav>
 
             {/* Bouton à droite desktop + mobile + burger mobile */}
@@ -83,13 +82,6 @@ const Header = () => {
             Logements
           </Link>
           <div className="border-t mx-6" />
-          <Link
-            to="/blog"
-            className="block text-center py-5 text-lg font-medium text-foreground/90 hover:text-primary transition-colors w-full"
-            onClick={() => setOpen(false)}
-          >
-            Blog
-          </Link>
         </div>
       </div>
     </div>

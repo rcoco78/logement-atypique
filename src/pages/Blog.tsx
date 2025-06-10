@@ -28,39 +28,50 @@ const articles = [
     date: "2024-05-10",
     author: "Alex Dupont",
     category: "Conseils"
+  },
+  {
+    id: 4,
+    title: "Dormir dans un phare : une nuit au bout du monde",
+    excerpt: "Vivez l'aventure unique d'une nuit dans un phare, entre ciel et mer.",
+    cover: "https://www.ouest-france.fr/images/2023/07/10/une-nuit-dans-un-phare.jpg",
+    date: "2024-06-10",
+    author: "Sophie Lemoine",
+    category: "Expérience"
   }
 ];
 
 const Blog = () => {
+  const bannerArticle = articles.find(a => a.id === 4);
+
   return (
     <main className="pt-40 pb-16 px-4 max-w-7xl mx-auto">
       {/* Hero section */}
       <section className="mb-12 text-center">
-        <h1 className="text-4xl md:text-6xl font-bold mb-2">Le blog du logement atypique</h1>
+        <h1 className="text-4xl md:text-5xl font-bold mb-6">Le blog du logement atypique</h1>
         <p className="text-xl text-muted-foreground mb-6">Inspiration, conseils et découvertes pour vos séjours hors du commun</p>
       </section>
 
-      {/* Article à la une */}
+      {/* Bannière spéciale pour le 4ème article */}
       <section className="mb-12">
         <div className="relative w-full h-64 md:h-96 rounded-2xl overflow-hidden shadow-lg mb-6">
-          <img src={articles[0].cover} alt={articles[0].title} className="w-full h-full object-cover" />
+          <img src={bannerArticle.cover} alt={bannerArticle.title} className="w-full h-full object-cover" />
           <div className="absolute inset-0 bg-black/40 flex flex-col justify-end p-6">
-            <span className="text-sm text-white/80">{articles[0].category}</span>
-            <h2 className="text-2xl md:text-4xl font-bold text-white mt-2">{articles[0].title}</h2>
-            <p className="text-lg text-white/90 mt-2">{articles[0].excerpt}</p>
+            <span className="text-sm text-white/80">{bannerArticle.category}</span>
+            <h2 className="text-2xl md:text-4xl font-bold text-white mt-2">{bannerArticle.title}</h2>
+            <p className="text-lg text-white/90 mt-2">{bannerArticle.excerpt}</p>
             <div className="flex items-center gap-4 mt-4 text-white/70 text-sm">
-              <span>{articles[0].author}</span>
+              <span>{bannerArticle.author}</span>
               <span>•</span>
-              <span>{new Date(articles[0].date).toLocaleDateString()}</span>
+              <span>{new Date(bannerArticle.date).toLocaleDateString()}</span>
             </div>
-            <Link to={`/article/${articles[0].id}`} className="mt-4 inline-block bg-white text-primary font-semibold px-6 py-2 rounded-full shadow hover:bg-primary hover:text-white transition">Lire l'article</Link>
+            <Link to={`/article/${bannerArticle.id}`} className="mt-4 inline-block bg-white text-primary font-semibold px-6 py-2 rounded-full shadow hover:bg-primary hover:text-white transition">Lire l'article</Link>
           </div>
         </div>
       </section>
 
-      {/* Grille d'articles */}
+      {/* Grille d'articles (sauf le 4ème) */}
       <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {articles.slice(1).map(article => (
+        {articles.filter(a => a.id !== 4).map(article => (
           <div key={article.id} className="bg-background border border-border rounded-xl shadow p-4 flex flex-col">
             <img src={article.cover} alt={article.title} className="w-full h-40 object-cover rounded-lg mb-4" />
             <span className="text-xs text-muted-foreground mb-2">{article.category}</span>

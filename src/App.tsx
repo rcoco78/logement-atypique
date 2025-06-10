@@ -12,6 +12,8 @@ import Article from './pages/Article';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import GoogleAnalytics from './components/GoogleAnalytics';
+import Equipe from './pages/equipe';
+import MentionsLegales from './pages/mentions-legales';
 
 const queryClient = new QueryClient();
 
@@ -29,6 +31,8 @@ const App = () => (
           <Route path="/partenariat" element={<Partenariat />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/article/:id" element={<Article />} />
+          <Route path="/equipe" element={<Equipe />} />
+          <Route path="/mentions-legales" element={<MentionsLegales />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
