@@ -252,7 +252,7 @@ const FeaturedSection = ({ limit }: { limit?: number }) => {
         {filteredProperties.map((property) => (
           <div 
             key={property.id} 
-            className="group cursor-pointer transform transition-all duration-300 hover:scale-105"
+            className={`group cursor-pointer transform transition-all duration-300 hover:scale-105 ${location.pathname === '/logements' ? 'border border-gray-200 shadow-sm rounded-xl px-2 bg-white' : ''}`}
             onClick={() => handlePropertyClick(property)}
           >
             <div className="relative overflow-hidden rounded-lg mb-4">
