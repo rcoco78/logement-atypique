@@ -14,6 +14,11 @@ import Footer from './components/Footer';
 import GoogleAnalytics from './components/GoogleAnalytics';
 import Equipe from './pages/equipe';
 import MentionsLegales from './pages/mentions-legales';
+import Temoignages from './pages/temoignages';
+import Contact from './pages/contact';
+import FAQ from './pages/faq';
+
+
 
 const queryClient = new QueryClient();
 
@@ -33,6 +38,11 @@ const App = () => (
           <Route path="/article/:id" element={<Article />} />
           <Route path="/equipe" element={<Equipe />} />
           <Route path="/mentions-legales" element={<MentionsLegales />} />
+          <Route path="/temoignages" element={<Temoignages />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/faq" element={<FAQ />} />
+
+
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

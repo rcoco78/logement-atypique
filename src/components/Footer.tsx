@@ -23,18 +23,19 @@ const Footer = () => {
       ]
     },
     {
-      title: 'À propos',
+      title: 'Ressources',
       links: [
-        { name: 'Notre histoire', href: '/a-propos' },
         { name: 'Notre équipe', href: '/equipe' },
         { name: 'Blog', href: '/blog' },
+        { name: 'Témoignages propriétaires', href: '/temoignages' },
+        { name: 'FAQ / Comment ça marche', href: '/faq' },
       ]
     },
     {
-      title: 'Vous êtes hôte ?',
+      title: 'Vous êtes hôte ?',
       links: [
         { name: 'Référencer mon logement', href: '/partenariat' },
-        { name: 'En savoir plus sur la démarche', href: 'https://wa.me/33600000000', external: true },
+        { name: 'Contactez-nous', href: '/contact', icon: 'whatsapp' },
       ]
     },
   ];
@@ -44,14 +45,22 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
           {/* Brand Section */}
-          <div className="lg:col-span-1">
-            <Link to="/" className="flex items-center space-x-2 mb-4">
-              <div className="text-xl font-bold text-primary">logement-atypique</div>
-            </Link>
-            <p className="text-muted-foreground text-sm mb-4">
-              La plateforme qui met en lumière les logements atypiques partout en France.
-            </p>
-            <div className="flex space-x-4">
+          <div className="lg:col-span-1 flex flex-col h-full">
+            <div>
+              <Link to="/" className="flex items-center space-x-2 mb-4">
+                <svg className="w-8 h-8 md:w-7 md:h-7" width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <rect x="7" y="14" width="18" height="12" rx="2" fill="#8B5A3C"/>
+                  <polygon points="16,6 4,16 6,18 16,10 26,18 28,16" fill="#D4A574"/>
+                  <rect x="13" y="20" width="6" height="6" rx="1" fill="#FEFCFA"/>
+                </svg>
+                <div className="text-xl font-bold text-primary">logement-atypique</div>
+              </Link>
+
+              <p className="text-muted-foreground text-sm mb-2">
+               Logements atypiques partout en France, sous un autre angle.
+              </p>
+            </div>
+            <div className="flex space-x-4 mt-auto">
               {/* Social Links */}
               <a href="https://facebook.com/logement.atypique" className="text-muted-foreground hover:text-foreground transition-colors" target="_blank" rel="noopener noreferrer">
                 <span className="sr-only">Facebook</span>
@@ -97,15 +106,14 @@ const Footer = () => {
               <ul className="space-y-2">
                 {section.links.map((link) => (
                   <li key={link.name}>
-                    {link.external ? (
-                      <a
-                        href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-muted-foreground hover:text-foreground transition-colors text-sm"
+                    {link.icon === 'whatsapp' ? (
+                      <Link
+                        to={link.href}
+                        className="inline-flex items-center gap-1 text-muted-foreground hover:text-foreground transition-colors text-sm"
                       >
                         {link.name}
-                      </a>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0,0,256,256" className="mr-2"><g fill="#6d6965" fillRule="nonzero" stroke="none" strokeWidth="1" strokeLinecap="butt" strokeLinejoin="miter" strokeMiterlimit="10" strokeDasharray="" strokeDashoffset="0" fontFamily="none" fontWeight="none" fontSize="none" textAnchor="none" style={{mixBlendMode: 'normal'}}><g transform="scale(5.12,5.12)"><path d="M25,2c-12.682,0 -23,10.318 -23,23c0,3.96 1.023,7.854 2.963,11.29l-2.926,10.44c-0.096,0.343 -0.003,0.711 0.245,0.966c0.191,0.197 0.451,0.304 0.718,0.304c0.08,0 0.161,-0.01 0.24,-0.029l10.896,-2.699c3.327,1.786 7.074,2.728 10.864,2.728c12.682,0 23,-10.318 23,-23c0,-12.682 -10.318,-23 -23,-23zM36.57,33.116c-0.492,1.362 -2.852,2.605 -3.986,2.772c-1.018,0.149 -2.306,0.213 -3.72,-0.231c-0.857,-0.27 -1.957,-0.628 -3.366,-1.229c-5.923,-2.526 -9.791,-8.415 -10.087,-8.804c-0.295,-0.389 -2.411,-3.161 -2.411,-6.03c0,-2.869 1.525,-4.28 2.067,-4.864c0.542,-0.584 1.181,-0.73 1.575,-0.73c0.394,0 0.787,0.005 1.132,0.021c0.363,0.018 0.85,-0.137 1.329,1.001c0.492,1.168 1.673,4.037 1.819,4.33c0.148,0.292 0.246,0.633 0.05,1.022c-0.196,0.389 -0.294,0.632 -0.59,0.973c-0.296,0.341 -0.62,0.76 -0.886,1.022c-0.296,0.291 -0.603,0.606 -0.259,1.19c0.344,0.584 1.529,2.493 3.285,4.039c2.255,1.986 4.158,2.602 4.748,2.894c0.59,0.292 0.935,0.243 1.279,-0.146c0.344,-0.39 1.476,-1.703 1.869,-2.286c0.393,-0.583 0.787,-0.487 1.329,-0.292c0.542,0.194 3.445,1.604 4.035,1.896c0.59,0.292 0.984,0.438 1.132,0.681c0.148,0.242 0.148,1.41 -0.344,2.771z"></path></g></g></svg>
+                      </Link>
                     ) : (
                       <Link
                         to={link.href}
@@ -121,13 +129,13 @@ const Footer = () => {
           ))}
         </div>
 
-        <div className="border-t border-border mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <div className="flex items-center space-x-4">
+        <div className="border-t border-border mt-12 pt-8 flex flex-col md:flex-row justify-between items-start">
+          <div className="flex flex-col md:flex-row items-start space-y-2 md:space-y-0 md:space-x-4">
             <p className="text-muted-foreground text-sm">
               © 2025 logement-atypique.fr. Tous droits réservés.
             </p>
-            <a href="/mentions-legales" className="text-muted-foreground hover:text-foreground text-sm ml-4">Mentions légales</a>
-            <a href="/conditions" className="text-muted-foreground hover:text-foreground text-sm ml-2">Conditions générales</a>
+            <a href="/mentions-legales" className="text-muted-foreground hover:text-foreground text-sm md:ml-4">Mentions légales</a>
+            <a href="/conditions" className="text-muted-foreground hover:text-foreground text-sm md:ml-2">Conditions générales</a>
           </div>
           <div className="flex items-center space-x-4 mt-4 md:mt-0">
             <span className="text-muted-foreground text-sm">

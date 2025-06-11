@@ -234,13 +234,22 @@ const FeaturedSection = ({ limit }: { limit?: number }) => {
     ? featuredProperties.filter(filterByParams)
     : (limit ? featuredProperties.slice(0, limit) : featuredProperties);
 
+  // Limiter le nombre de logements affichés si limit est défini (et sur /logements)
+  let displayedProperties = filteredProperties;
+  let showSpecialCard = false;
+  if (location.pathname === '/logements' && limit) {
+    // On veut au total 'limit' cards, donc (limit - 1) logements + 1 card spéciale
+    showSpecialCard = true;
+    displayedProperties = filteredProperties.slice(0, Math.max(0, limit - 1));
+  }
+
   const handlePropertyClick = (property) => {
     setSelectedProperty(property);
     setIsModalOpen(true);
   };
 
   return (
-    <section className="py-16 px-4 max-w-7xl mx-auto">
+    <section className="py-1 px-4 max-w-7xl mx-auto">
       <div className="text-center mb-12">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">Nos coups de cœur</h2>
         <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -249,54 +258,120 @@ const FeaturedSection = ({ limit }: { limit?: number }) => {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
-        {filteredProperties.map((property) => (
-          <div 
-            key={property.id} 
-            className="group cursor-pointer transform transition-all duration-300 hover:scale-105 mx-3 md:mx-0"
-            onClick={() => handlePropertyClick(property)}
-          >
-            <div className="relative overflow-hidden rounded-lg mb-4">
-              <img
-                src={property.image}
-                alt={property.title}
-                className="w-full aspect-[4/5] md:aspect-[9/16] object-cover transition-transform duration-500 group-hover:scale-110 rounded-lg"
-                style={{ border: 'none', boxShadow: 'none' }}
-              />
-              <div className="absolute top-4 left-4 space-y-2">
-                {property.featured && (
-                  <Badge className="bg-primary text-primary-foreground">
-                    Coup de cœur
-                  </Badge>
-                )}
-                <Badge variant="secondary" className="block w-fit">
-                  {property.type}
-                </Badge>
-              </div>
-              
-              {/* Video Play Overlay */}
-              <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                <div className="bg-white/90 backdrop-blur-sm rounded-full p-3">
-                  <Play className="h-6 w-6 text-primary ml-1" />
+        {displayedProperties.map((property, idx) => {
+          // Insérer la card spéciale au milieu de la liste affichée
+          const middle = Math.floor((displayedProperties.length + (showSpecialCard ? 1 : 0)) / 2);
+          if (showSpecialCard && idx === middle) {
+            return [
+              // Card spéciale
+              <div key="proposer-card" className="group cursor-pointer transform transition-all duration-300 hover:scale-105 mx-3 md:mx-0">
+                <div className="relative overflow-hidden rounded-lg mb-4 bg-gradient-to-br from-primary/10 to-secondary/10 border-2 border-primary flex flex-col items-center justify-center h-full min-h-[340px] p-6">
+                  <div className="flex flex-col items-center justify-center h-full w-full">
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-12 w-12 text-primary mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zm0 0V4m0 16v-4" /></svg>
+                    <h3 className="font-bold text-xl mb-2 text-primary text-center">Vous avez un logement atypique ?</h3>
+                    <p className="text-muted-foreground text-center mb-4">Proposez-le gratuitement, on vient le filmer et le mettre en avant !</p>
+                    <Link to="/partenariat" className="w-full">
+                      <Button size="lg" variant="default" className="w-full font-bold">Proposer un logement</Button>
+                    </Link>
+                    <div className="text-xs text-primary mt-2 text-center font-normal opacity-80">On filme gratuitement et dans la semaine en Île-de-France !</div>
+                  </div>
+                </div>
+              </div>,
+              // Logement classique
+              <div 
+                key={property.id} 
+                className="group cursor-pointer transform transition-all duration-300 hover:scale-105 mx-3 md:mx-0"
+                onClick={() => handlePropertyClick(property)}
+              >
+                <div className="relative overflow-hidden rounded-lg mb-4">
+                  <img
+                    src={property.image}
+                    alt={property.title}
+                    className="w-full aspect-[4/5] md:aspect-[9/16] object-cover transition-transform duration-500 group-hover:scale-110 rounded-lg"
+                    style={{ border: 'none', boxShadow: 'none' }}
+                  />
+                  <div className="absolute top-4 left-4 space-y-2">
+                    {property.featured && (
+                      <Badge className="bg-primary text-primary-foreground">
+                        Coup de cœur
+                      </Badge>
+                    )}
+                    <Badge variant="secondary" className="block w-fit">
+                      {property.type}
+                    </Badge>
+                  </div>
+                  {/* Video Play Overlay */}
+                  <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                    <div className="bg-white/90 backdrop-blur-sm rounded-full p-3">
+                      <Play className="h-6 w-6 text-primary ml-1" />
+                    </div>
+                  </div>
+                  {/* Video Badge */}
+                  <div className="absolute top-4 right-4">
+                    <Badge className="bg-primary/90 text-white flex items-center gap-1">
+                      <Video className="h-3 w-3" />
+                      Vidéo
+                    </Badge>
+                  </div>
+                </div>
+                <div>
+                  <h3 className="font-semibold text-lg mb-1 group-hover:text-primary transition-colors">
+                    {property.title}
+                  </h3>
+                  <p className="text-muted-foreground text-sm mb-1">{property.location}</p>
+                  <p className="text-muted-foreground text-sm">{property.capacity}</p>
                 </div>
               </div>
-              
-              {/* Video Badge */}
-              <div className="absolute top-4 right-4">
-                <Badge className="bg-primary/90 text-white flex items-center gap-1">
-                  <Video className="h-3 w-3" />
-                  Vidéo
-                </Badge>
+            ];
+          }
+          // Logement classique
+          return (
+            <div 
+              key={property.id} 
+              className="group cursor-pointer transform transition-all duration-300 hover:scale-105 mx-3 md:mx-0"
+              onClick={() => handlePropertyClick(property)}
+            >
+              <div className="relative overflow-hidden rounded-lg mb-4">
+                <img
+                  src={property.image}
+                  alt={property.title}
+                  className="w-full aspect-[4/5] md:aspect-[9/16] object-cover transition-transform duration-500 group-hover:scale-110 rounded-lg"
+                  style={{ border: 'none', boxShadow: 'none' }}
+                />
+                <div className="absolute top-4 left-4 space-y-2">
+                  {property.featured && (
+                    <Badge className="bg-primary text-primary-foreground">
+                      Coup de cœur
+                    </Badge>
+                  )}
+                  <Badge variant="secondary" className="block w-fit">
+                    {property.type}
+                  </Badge>
+                </div>
+                {/* Video Play Overlay */}
+                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                  <div className="bg-white/90 backdrop-blur-sm rounded-full p-3">
+                    <Play className="h-6 w-6 text-primary ml-1" />
+                  </div>
+                </div>
+                {/* Video Badge */}
+                <div className="absolute top-4 right-4">
+                  <Badge className="bg-primary/90 text-white flex items-center gap-1">
+                    <Video className="h-3 w-3" />
+                    Vidéo
+                  </Badge>
+                </div>
+              </div>
+              <div>
+                <h3 className="font-semibold text-lg mb-1 group-hover:text-primary transition-colors">
+                  {property.title}
+                </h3>
+                <p className="text-muted-foreground text-sm mb-1">{property.location}</p>
+                <p className="text-muted-foreground text-sm">{property.capacity}</p>
               </div>
             </div>
-            <div>
-              <h3 className="font-semibold text-lg mb-1 group-hover:text-primary transition-colors">
-                {property.title}
-              </h3>
-              <p className="text-muted-foreground text-sm mb-1">{property.location}</p>
-              <p className="text-muted-foreground text-sm">{property.capacity}</p>
-            </div>
-          </div>
-        ))}
+          );
+        }).flat()}
       </div>
 
       {location.pathname !== '/logements' && (
@@ -306,26 +381,6 @@ const FeaturedSection = ({ limit }: { limit?: number }) => {
               Voir tous nos logements
             </Button>
           </Link>
-        </div>
-      )}
-
-      {location.pathname !== '/' && (
-        <div className="flex flex-col items-center mt-8">
-          <div className="border border-[#BFA48A] rounded-xl p-6 bg-transparent shadow-sm w-full max-w-xl md:w-2/3">
-          <Link to="/partenariat">
-              <Button
-                size="lg"
-                variant="white"
-                className="w-full text-lg h-12 font-bold"
-                aria-label="Proposer un logement atypique"
-              >
-              Proposer un logement atypique
-            </Button>
-          </Link>
-            <div className="text-xs text-[#BFA48A] mt-2 text-center font-normal">
-            On filme gratuitement et dans la semaine en Île-de-France !
-            </div>
-          </div>
         </div>
       )}
 
