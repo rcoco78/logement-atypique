@@ -2,7 +2,6 @@ const { Client } = require('@notionhq/client');
 const { NotionToMarkdown } = require('notion-to-md');
 require('dotenv').config();
 
-
 const notion = new Client({
   auth: process.env.NOTION_API_KEY,
 });
