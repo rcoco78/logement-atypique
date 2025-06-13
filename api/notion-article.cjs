@@ -1,5 +1,6 @@
 const { Client } = require('@notionhq/client');
 const { NotionToMarkdown } = require('notion-to-md');
+const { get } = require('@vercel/blob');
 require('dotenv').config();
 
 const notion = new Client({
@@ -10,6 +11,19 @@ const databaseId = process.env.NOTION_DATABASE_ID;
 // --- CACHE EN MÉMOIRE PAR SLUG ---
 let cache = {};
 const CACHE_DURATION = 1000 * 60 * 60; // 1h
+
+async function getArticleFromBlob(slug) {
+  try {
+    const { blob } = await get(`articles/${slug}.json`);
+    if (blob && blob.url) {
+      const response = await fetch(blob.url);
+      return await response.json();
+    }
+    return null;
+  } catch (e) {
+    return null;
+  }
+}
 
 async function getArticleById(id) {
   const page = await notion.pages.retrieve({ page_id: id });
@@ -39,9 +53,15 @@ async function getArticleById(id) {
 }
 
 async function getArticleBySlug(slug) {
-  // Si cache valide, on le renvoie
+  // Si cache mémoire valide, on le renvoie
   if (cache[slug] && (Date.now() - cache[slug].timestamp < CACHE_DURATION)) {
     return cache[slug].data;
+  }
+  // Tenter de lire depuis le blob store
+  const blobArticle = await getArticleFromBlob(slug);
+  if (blobArticle) {
+    cache[slug] = { data: blobArticle, timestamp: Date.now() };
+    return blobArticle;
   }
   // Rechercher l'article par slug dans la base de données Notion
   const response = await notion.databases.query({
@@ -53,16 +73,11 @@ async function getArticleBySlug(slug) {
       },
     },
   });
-
-  // Vérifier si on a trouvé un article correspondant
   if (!response.results || response.results.length === 0) {
     throw new Error(`Article with slug "${slug}" not found`);
   }
-
-  // Utiliser la fonction existante pour récupérer les détails complets
   const id = response.results[0].id;
   const article = await getArticleById(id);
-  // On met en cache
   cache[slug] = { data: article, timestamp: Date.now() };
   return article;
 }
@@ -70,7 +85,6 @@ async function getArticleBySlug(slug) {
 module.exports = async (req, res) => {
   try {
     let article;
-    // Vérifier si on a un ID ou un slug
     if (req.query.id) {
       article = await getArticleById(req.query.id);
     } else if (req.query.slug) {
