@@ -1,6 +1,8 @@
-const { Client } = require('@notionhq/client');
-const { NotionToMarkdown } = require('notion-to-md');
-require('dotenv').config();
+import { Client } from '@notionhq/client';
+import { NotionToMarkdown } from 'notion-to-md';
+import { get, put } from '@vercel/blob';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const notion = new Client({
   auth: process.env.NOTION_API_KEY,
@@ -27,8 +29,6 @@ async function getFullArticle(article) {
 
 async function fetchAndSaveArticleDetails() {
   try {
-    console.log('[cron-details] Import dynamique de @vercel/blob...');
-    const { get, put } = await import('@vercel/blob');
     console.log('[cron-details] Lecture du blob articles.json...');
     const { blob } = await get('articles.json');
     if (!blob || !blob.url) throw new Error('articles.json introuvable dans le blob store');
@@ -52,7 +52,7 @@ async function fetchAndSaveArticleDetails() {
   }
 }
 
-module.exports = async (req, res) => {
+export default async (req, res) => {
   try {
     const nb = await fetchAndSaveArticleDetails();
     res.status(200).json({ ok: true, count: nb });
