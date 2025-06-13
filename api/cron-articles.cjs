@@ -56,16 +56,18 @@ async function fetchAndSaveArticles() {
   }));
   // Sauvegarde la liste dans Vercel Blob
   await put('articles.json', JSON.stringify(articles, null, 2), { access: 'public', allowOverwrite: true });
-  // Pour chaque article, sauvegarde le contenu complet dans le blob store
-  for (const article of articles) {
+  console.log('Nombre d\'articles à traiter :', articles.length);
+  // Pour chaque article, sauvegarde le contenu complet dans le blob store (en parallèle)
+  await Promise.all(articles.map(async (article) => {
     try {
+      console.log(`Début traitement : ${article.slug}`);
       const fullArticle = await getFullArticle(article);
       await put(`articles/${article.slug}.json`, JSON.stringify(fullArticle, null, 2), { access: 'public', allowOverwrite: true });
       console.log(`Article sauvegardé : ${article.slug}`);
     } catch (e) {
       console.error(`Erreur pour l'article ${article.slug} :`, e);
     }
-  }
+  }));
   return articles.length;
 }
 
