@@ -1,6 +1,8 @@
 const { Client } = require('@notionhq/client');
 const { NotionToMarkdown } = require('notion-to-md');
-const { get, put } = require('@vercel/blob');
+const vercelBlob = require('@vercel/blob');
+const get = vercelBlob.get;
+const put = vercelBlob.put;
 require('dotenv').config();
 
 const notion = new Client({
