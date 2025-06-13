@@ -1,8 +1,6 @@
-import { Client } from '@notionhq/client';
-import { NotionToMarkdown } from 'notion-to-md';
-import { get, put } from '@vercel/blob';
-import dotenv from 'dotenv';
-dotenv.config();
+const { Client } = require('@notionhq/client');
+const { NotionToMarkdown } = require('notion-to-md');
+require('dotenv').config();
 
 const notion = new Client({
   auth: process.env.NOTION_API_KEY,
@@ -22,6 +20,8 @@ async function getFullArticle(article) {
 }
 
 async function fetchAndSaveArticleDetails() {
+  // Import dynamique du module ESM @vercel/blob
+  const { get, put } = await import('@vercel/blob');
   const { blob } = await get('articles.json');
   if (!blob || !blob.url) throw new Error('articles.json introuvable dans le blob store');
   const response = await fetch(blob.url);
@@ -40,7 +40,7 @@ async function fetchAndSaveArticleDetails() {
   return articles.length;
 }
 
-export default async (req, res) => {
+module.exports = async (req, res) => {
   try {
     const nb = await fetchAndSaveArticleDetails();
     res.status(200).json({ ok: true, count: nb });
