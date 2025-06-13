@@ -6,7 +6,7 @@
     { "source": "/api/notion-articles", "destination": "/api/notion-articles.cjs" },
     { "source": "/api/notion-article", "destination": "/api/notion-article.cjs" },
     { "source": "/api/cron-articles", "destination": "/api/cron-articles.cjs" },
-    { "source": "/api/cron-articles-details", "destination": "/api/cron-articles-details.cjs" },
+    { "source": "/api/cron-articles-details", "destination": "/api/cron-articles-details.mjs" },
 
 
     { "source": "/((?!api|assets).*)", "destination": "/" }
