@@ -1,5 +1,4 @@
 const { Client } = require('@notionhq/client');
-const { NotionToMarkdown } = require('notion-to-md');
 const { put } = require('@vercel/blob');
 require('dotenv').config();
 
@@ -7,20 +6,6 @@ const notion = new Client({
   auth: process.env.NOTION_API_KEY,
 });
 const databaseId = process.env.NOTION_DATABASE_ID;
-
-async function getFullArticle(article) {
-  const page = await notion.pages.retrieve({ page_id: article.id });
-  const blocks = await notion.blocks.children.list({ block_id: article.id });
-  const n2m = new NotionToMarkdown({ notionClient: notion });
-  const mdBlocks = await n2m.pageToMarkdown(article.id);
-  const mdString = n2m.toMarkdownString(mdBlocks);
-  const properties = page.properties;
-  return {
-    ...article,
-    content: blocks.results.map((b) => b[b.type]?.rich_text?.map((t) => t.plain_text).join('') || '').join('\n\n'),
-    contentMarkdown: mdString,
-  };
-}
 
 async function fetchAndSaveArticles() {
   const response = await notion.databases.query({
@@ -56,18 +41,7 @@ async function fetchAndSaveArticles() {
   }));
   // Sauvegarde la liste dans Vercel Blob
   await put('articles.json', JSON.stringify(articles, null, 2), { access: 'public', allowOverwrite: true });
-  console.log('Nombre d\'articles à traiter :', articles.length);
-  // Pour chaque article, sauvegarde le contenu complet dans le blob store (en parallèle)
-  await Promise.all(articles.map(async (article) => {
-    try {
-      console.log(`Début traitement : ${article.slug}`);
-      const fullArticle = await getFullArticle(article);
-      await put(`articles/${article.slug}.json`, JSON.stringify(fullArticle, null, 2), { access: 'public', allowOverwrite: true });
-      console.log(`Article sauvegardé : ${article.slug}`);
-    } catch (e) {
-      console.error(`Erreur pour l'article ${article.slug} :`, e);
-    }
-  }));
+  console.log('Liste des articles sauvegardée. Nombre d\'articles :', articles.length);
   return articles.length;
 }
 
