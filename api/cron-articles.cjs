@@ -1,6 +1,6 @@
+const { Client } = require('@notionhq/client');
 const fs = require('fs');
 const path = require('path');
-const { Client } = require('@notionhq/client');
 require('dotenv').config();
 
 const notion = new Client({
@@ -8,16 +8,7 @@ const notion = new Client({
 });
 const databaseId = process.env.NOTION_DATABASE_ID;
 
-function getArticlesFromCache() {
-  const filePath = path.join(__dirname, '../articles.json');
-  if (fs.existsSync(filePath)) {
-    const data = fs.readFileSync(filePath, 'utf-8');
-    return JSON.parse(data);
-  }
-  return null;
-}
-
-async function getArticlesFromNotion() {
+async function fetchAndSaveArticles() {
   const response = await notion.databases.query({
     database_id: databaseId,
     filter: {
@@ -33,7 +24,7 @@ async function getArticlesFromNotion() {
       },
     ],
   });
-  return response.results.map((a) => ({
+  const articles = response.results.map((a) => ({
     id: a.id,
     titre: a.properties.Titre?.title[0]?.plain_text || '',
     date: a.properties.Date?.date?.start || '',
@@ -49,18 +40,18 @@ async function getArticlesFromNotion() {
           : a.cover.file.url)
       : null,
   }));
+  // Sauvegarde dans un fichier JSON à la racine du projet
+  const filePath = path.join(__dirname, '../articles.json');
+  fs.writeFileSync(filePath, JSON.stringify(articles, null, 2), 'utf-8');
+  return articles.length;
 }
 
 module.exports = async (req, res) => {
   try {
-    let articles = getArticlesFromCache();
-    if (!articles) {
-      articles = await getArticlesFromNotion();
-    }
-    res.setHeader('Content-Type', 'application/json');
-    res.setHeader('Cache-Control', 'public, max-age=3600');
-    res.status(200).end(JSON.stringify(articles));
+    // Sécurité : optionnel, vérifier un secret si besoin
+    const nb = await fetchAndSaveArticles();
+    res.status(200).json({ ok: true, count: nb });
   } catch (e) {
-    res.status(500).end(JSON.stringify({ error: e.message }));
+    res.status(500).json({ error: e.message });
   }
 }; 

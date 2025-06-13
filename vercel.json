@@ -64,5 +64,11 @@
   ],
   "env": {
     "NODE_VERSION": "18.x"
-  }
+  },
+  "crons": [
+    {
+      "path": "/api/cron-articles",
+      "schedule": "0 * * * *"
+    }
+  ]
 } 
