@@ -17,6 +17,7 @@ import MentionsLegales from './pages/mentions-legales';
 import Temoignages from './pages/temoignages';
 import Contact from './pages/contact';
 import FAQ from './pages/faq';
+import { Analytics } from '@vercel/analytics/react';
 
 
 
@@ -48,6 +49,7 @@ const App = () => (
         </Routes>
         <Footer />
       </BrowserRouter>
+      <Analytics />
     </TooltipProvider>
   </QueryClientProvider>
 );
