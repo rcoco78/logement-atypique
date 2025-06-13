@@ -7,6 +7,10 @@ const notion = new Client({
 });
 const databaseId = process.env.NOTION_DATABASE_ID;
 
+// --- CACHE EN MÉMOIRE PAR SLUG ---
+let cache = {};
+const CACHE_DURATION = 1000 * 60 * 60; // 1h
+
 async function getArticleById(id) {
   const page = await notion.pages.retrieve({ page_id: id });
   const blocks = await notion.blocks.children.list({ block_id: id });
@@ -35,6 +39,10 @@ async function getArticleById(id) {
 }
 
 async function getArticleBySlug(slug) {
+  // Si cache valide, on le renvoie
+  if (cache[slug] && (Date.now() - cache[slug].timestamp < CACHE_DURATION)) {
+    return cache[slug].data;
+  }
   // Rechercher l'article par slug dans la base de données Notion
   const response = await notion.databases.query({
     database_id: databaseId,
@@ -53,13 +61,15 @@ async function getArticleBySlug(slug) {
 
   // Utiliser la fonction existante pour récupérer les détails complets
   const id = response.results[0].id;
-  return getArticleById(id);
+  const article = await getArticleById(id);
+  // On met en cache
+  cache[slug] = { data: article, timestamp: Date.now() };
+  return article;
 }
 
 module.exports = async (req, res) => {
   try {
     let article;
-    
     // Vérifier si on a un ID ou un slug
     if (req.query.id) {
       article = await getArticleById(req.query.id);
@@ -69,8 +79,8 @@ module.exports = async (req, res) => {
       res.status(400).end(JSON.stringify({ error: 'Missing id or slug parameter' }));
       return;
     }
-    
     res.setHeader('Content-Type', 'application/json');
+    res.setHeader('Cache-Control', 'public, max-age=3600');
     res.status(200).end(JSON.stringify(article));
   } catch (e) {
     res.status(500).end(JSON.stringify({ error: e.message }));
