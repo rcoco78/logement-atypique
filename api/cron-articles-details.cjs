@@ -22,24 +22,34 @@ async function getFullArticle(article) {
 }
 
 async function fetchAndSaveArticleDetails() {
-  // Lire la liste des articles depuis le blob
-  const { blob } = await get('articles.json');
-  if (!blob || !blob.url) throw new Error('articles.json introuvable dans le blob store');
-  const response = await fetch(blob.url);
-  const articles = await response.json();
-  console.log('Nombre d\'articles à détailler :', articles.length);
-  // Pour chaque article, sauvegarde le contenu complet dans le blob store (en parallèle)
-  await Promise.all(articles.map(async (article) => {
-    try {
-      console.log(`Début traitement : ${article.slug}`);
-      const fullArticle = await getFullArticle(article);
-      await put(`articles/${article.slug}.json`, JSON.stringify(fullArticle, null, 2), { access: 'public', allowOverwrite: true });
-      console.log(`Article détaillé sauvegardé : ${article.slug}`);
-    } catch (e) {
-      console.error(`Erreur pour l'article ${article.slug} :`, e);
+  try {
+    const { blob } = await get('articles.json');
+    if (!blob || !blob.url) {
+      console.error('articles.json introuvable dans le blob store');
+      throw new Error('articles.json introuvable dans le blob store');
     }
-  }));
-  return articles.length;
+    const response = await fetch(blob.url);
+    const articles = await response.json();
+    console.log('Nombre d\'articles à détailler :', articles.length);
+    await Promise.all(articles.map(async (article) => {
+      try {
+        console.log(`Début traitement : ${article.slug}`);
+        const fullArticle = await getFullArticle(article);
+        await put(
+          `articles/${article.slug}.json`,
+          JSON.stringify(fullArticle, null, 2),
+          { access: 'public', allowOverwrite: true }
+        );
+        console.log(`Article détaillé sauvegardé : ${article.slug}`);
+      } catch (e) {
+        console.error(`Erreur pour l'article ${article.slug} :`, e);
+      }
+    }));
+    return articles.length;
+  } catch (e) {
+    console.error('Erreur globale dans fetchAndSaveArticleDetails :', e);
+    throw e;
+  }
 }
 
 module.exports = async (req, res) => {
