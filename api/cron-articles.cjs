@@ -1,6 +1,5 @@
 const { Client } = require('@notionhq/client');
-const fs = require('fs');
-const path = require('path');
+const { put } = require('@vercel/blob');
 require('dotenv').config();
 
 const notion = new Client({
@@ -40,9 +39,8 @@ async function fetchAndSaveArticles() {
           : a.cover.file.url)
       : null,
   }));
-  // Sauvegarde dans un fichier JSON à la racine du projet
-  const filePath = path.join(__dirname, '../articles.json');
-  fs.writeFileSync(filePath, JSON.stringify(articles, null, 2), 'utf-8');
+  // Sauvegarde dans Vercel Blob
+  await put('articles.json', JSON.stringify(articles, null, 2), { access: 'public' });
   return articles.length;
 }
 

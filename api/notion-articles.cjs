@@ -1,5 +1,4 @@
-const fs = require('fs');
-const path = require('path');
+const { get } = require('@vercel/blob');
 const { Client } = require('@notionhq/client');
 require('dotenv').config();
 
@@ -8,13 +7,17 @@ const notion = new Client({
 });
 const databaseId = process.env.NOTION_DATABASE_ID;
 
-function getArticlesFromCache() {
-  const filePath = path.join(__dirname, '../articles.json');
-  if (fs.existsSync(filePath)) {
-    const data = fs.readFileSync(filePath, 'utf-8');
-    return JSON.parse(data);
+async function getArticlesFromCache() {
+  try {
+    const { blob } = await get('articles.json');
+    if (blob && blob.url) {
+      const response = await fetch(blob.url);
+      return await response.json();
+    }
+    return null;
+  } catch (e) {
+    return null;
   }
-  return null;
 }
 
 async function getArticlesFromNotion() {
@@ -53,7 +56,7 @@ async function getArticlesFromNotion() {
 
 module.exports = async (req, res) => {
   try {
-    let articles = getArticlesFromCache();
+    let articles = await getArticlesFromCache();
     if (!articles) {
       articles = await getArticlesFromNotion();
     }
