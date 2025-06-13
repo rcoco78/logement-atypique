@@ -5,6 +5,8 @@
     { "source": "/api/partenariat", "destination": "/api/partenariat.cjs" },
     { "source": "/api/notion-articles", "destination": "/api/notion-articles.cjs" },
     { "source": "/api/notion-article", "destination": "/api/notion-article.cjs" },
+    { "source": "/api/cron-articles", "destination": "/api/cron-articles.cjs" },
+
     { "source": "/((?!api|assets).*)", "destination": "/" }
   ],
   "headers": [
