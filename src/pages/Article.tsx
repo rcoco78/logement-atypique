@@ -91,7 +91,7 @@ const Article = () => {
         </div>
       </section>
       {/* Contenu de l'article en markdown */}
-      <article className="prose prose-lg max-w-none text-foreground/90">
+      <article>
         {article.contentMarkdown && typeof article.contentMarkdown.parent === 'string'
           ? <MarkdownRenderer>{article.contentMarkdown.parent}</MarkdownRenderer>
           : article.content}

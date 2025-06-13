@@ -535,7 +535,7 @@ const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ children }) => {
   const [expanded, setExpanded] = React.useState<string | null>(null);
 
   return (
-    <div className="markdown-rendered">
+    <div className="markdown-rendered prose prose-lg max-w-none text-foreground/90">
       <ReactMarkdown
         components={{
           img: ({ node, ...props }) => (
