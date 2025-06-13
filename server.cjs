@@ -10,8 +10,14 @@ const app = express();
 app.use(cors());
 
 // API Notion
-app.get('/api/notion-articles', notionArticles);
-app.get('/api/notion-article', notionArticle);
+app.get('/api/notion-articles', (req, res, next) => {
+  res.set('Cache-Control', 'public, max-age=300, stale-while-revalidate=60');
+  next();
+}, notionArticles);
+app.get('/api/notion-article', (req, res, next) => {
+  res.set('Cache-Control', 'public, max-age=300, stale-while-revalidate=60');
+  next();
+}, notionArticle);
 
 // Pour la prod : servir le build Vite
 app.use(express.static(path.join(__dirname, 'dist')));
