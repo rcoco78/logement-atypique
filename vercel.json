@@ -5,7 +5,7 @@
     { "source": "/api/partenariat", "destination": "/api/partenariat.cjs" },
     { "source": "/api/notion-articles", "destination": "/api/notion-articles.cjs" },
     { "source": "/api/notion-article", "destination": "/api/notion-article.cjs" },
-    { "source": "/api/cron-articles", "destination": "/api/cron-articles.js" },
+    { "source": "/api/cron-articles", "destination": "/api/cron-articles.cjs" },
     { "source": "/api/cron-articles-details", "destination": "/api/cron-articles-details.cjs" },
 
 

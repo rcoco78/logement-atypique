@@ -1,6 +1,7 @@
-const { Client } = require('@notionhq/client');
-const { put } = require('@vercel/blob');
-require('dotenv').config();
+import { Client } from '@notionhq/client';
+import { put } from '@vercel/blob';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const notion = new Client({
   auth: process.env.NOTION_API_KEY,
@@ -45,7 +46,7 @@ async function fetchAndSaveArticles() {
   return articles.length;
 }
 
-module.exports = async (req, res) => {
+export default async (req, res) => {
   try {
     // Sécurité : optionnel, vérifier un secret si besoin
     const nb = await fetchAndSaveArticles();
