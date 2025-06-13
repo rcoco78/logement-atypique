@@ -1,5 +1,6 @@
-import React from "react";
+import React, { ReactNode } from 'react';
 import "./MarkdownRenderer.css";
+import ReactMarkdown from 'react-markdown';
 
 // Fonction avancée pour convertir le markdown en HTML
 function markdownToHtml(markdown: string): string {
@@ -526,210 +527,35 @@ function processTableMarkdown(tableStr: string): string {
   </div>`;
 }
 
-export default function MarkdownRenderer({ children }: { children: string }) {
-  // Fonction pour extraire et convertir les tableaux d'un JSON d'article
-  const convertJsonTableToHtml = React.useCallback((json: string) => {
-    try {
-      // Essayer de parser le JSON
-      const articleData = JSON.parse(json);
-      
-      // Vérifier si nous avons contentMarkdown.parent ou content
-      const markdownContent = articleData.contentMarkdown?.parent || articleData.content;
-      
-      if (!markdownContent) return json;
-      
-      // Recherche de tableaux dans le contenu markdown
-      const tablePattern = /\|\s*([^\n|]+)\s*\|\s*([^\n|]+)\s*\|\s*([^\n|]+)\s*\|\s*([^\n|]+)\s*\|\n\|\s*[-]+\s*\|\s*[-]+\s*\|\s*[-]+\s*\|\s*[-]+\s*\|([\s\S]*?)(?=\n\n|\n##|$)/g;
-      let result = markdownContent;
-      let match;
-      
-      while ((match = tablePattern.exec(markdownContent)) !== null) {
-        const tableContent = match[0];
-        const lines = tableContent.split('\n').filter(line => line.trim() && line.includes('|'));
-        
-        if (lines.length >= 2) {
-          // Extraire les en-têtes
-          const headerRow = lines[0];
-          const headers = headerRow.split('|')
-            .filter(cell => cell.trim())
-            .map(cell => cell.trim());
-            
-          // Ignorer la ligne de séparation avec les tirets (ligne 1)
-          const dataRows = lines.slice(2);
-          
-          // Construire le HTML du tableau
-          const headerHTML = headers.map(header => `<th>${header}</th>`).join('');
-          
-          const rowsHTML = dataRows.map(row => {
-            const cells = row.split('|')
-              .filter(cell => cell.trim())
-              .map(cell => cell.trim())
-              .map(cell => `<td>${cell}</td>`)
-              .join('');
-              
-            return `<tr>${cells}</tr>`;
-          }).join('');
-          
-          const tableHTML = `
-          <div class="table-container">
-            <table>
-              <thead>
-                <tr>${headerHTML}</tr>
-              </thead>
-              <tbody>
-                ${rowsHTML}
-              </tbody>
-            </table>
-          </div>`;
-          
-          // Remplacer le tableau Markdown par le HTML dans le résultat
-          result = result.replace(tableContent, tableHTML);
-        }
-      }
-      
-      // Retourner le contenu avec les tableaux convertis
-      return result;
-    } catch (e) {
-      console.error("Erreur lors de la conversion du tableau JSON:", e);
-      return json;
-    }
-  }, []);
+interface MarkdownRendererProps {
+  children: string;
+}
 
-  // Détecter s'il s'agit d'un JSON et si oui, extraire le contenu pertinent
-  const processedContent = React.useMemo(() => {
-    if (children && (children.trim().startsWith('{') && children.trim().endsWith('}'))) {
-      try {
-        return convertJsonTableToHtml(children);
-      } catch (e) {
-        return children;
-      }
-    }
-    return children;
-  }, [children, convertJsonTableToHtml]);
-  
-  // Traitement du contenu Markdown normal
-  const fixedMarkdown = React.useMemo(() => {
-    let content = processedContent;
-    
-    // Détecter et corriger les liens d'images Notion au format markdown
-    const notionImageLinkPattern = /!\[(.*?)\]\((https:\/\/prod-files-secure\.s3[^)]+)\)/g;
-    content = content.replace(notionImageLinkPattern, (match, alt, url) => {
-      // Nettoyer l'URL en supprimant les espaces et autres caractères problématiques
-      return `![${alt}](${url.replace(/\s/g, '')})`;
-    });
-    
-    return content;
-  }, [processedContent]);
-  
-  // Utiliser dangerouslySetInnerHTML car ReactMarkdown ne fonctionne pas correctement
-  // Utiliser useEffect pour ajouter des écouteurs d'événements aux images après le rendu
-  React.useEffect(() => {
-    // Chercher toutes les images dans les conteneurs .markdown-rendered
-    const images = document.querySelectorAll('.markdown-rendered img');
-    
-    images.forEach(img => {
-      // Ajouter le comportement de zoom si ce n'est pas déjà fait
-      if (!img.getAttribute('onclick')) {
-        img.setAttribute('onclick', 
-          "if(this.classList.contains('expanded')) { this.classList.remove('expanded'); } else { this.classList.add('expanded'); }"
-        );
-      }
-      
-      // S'assurer que l'image est bien dans un conteneur .image-container
-      if (!img.closest('.image-container')) {
-        const parent = img.parentElement;
-        const container = document.createElement('div');
-        container.className = 'image-container';
-        
-        if (parent) {
-          parent.insertBefore(container, img);
-          container.appendChild(img);
-        }
-      }
-    });
-    
-    // Corriger les liens spécifiques qui contiennent des images Notion
-    const notionLinks = document.querySelectorAll('a[href*="prod-files-secure.s3"]');
-    notionLinks.forEach(link => {
-      const href = link.getAttribute('href');
-      if (href && (href.includes('.png') || href.includes('.jpg') || href.includes('.jpeg') || href.includes('.gif'))) {
-        // Créer une image à la place du lien
-        const img = document.createElement('img');
-        img.setAttribute('src', href);
-        img.setAttribute('alt', link.textContent || 'Image');
-        img.className = 'article-image notion-image';
-        img.setAttribute('loading', 'lazy');
-        img.setAttribute('onclick', 
-          "if(this.classList.contains('expanded')) { this.classList.remove('expanded'); } else { this.classList.add('expanded'); }"
-        );
-        
-        // Créer un conteneur
-        const container = document.createElement('div');
-        container.className = 'image-container';
-        container.appendChild(img);
-        
-        // Remplacer le lien par l'image
-        if (link.parentElement) {
-          link.parentElement.replaceChild(container, link);
-        }
-      }
-    });
-
-    // Traiter les liens YouTube qui n'auraient pas été convertis par la fonction markdownToHtml
-    const youtubeLinks = document.querySelectorAll('a[href*="youtube.com"], a[href*="youtu.be"]');
-    youtubeLinks.forEach(link => {
-      const href = link.getAttribute('href');
-      if (!href) return;
-
-      // Fonction pour extraire l'ID YouTube
-      const extractYouTubeId = (url: string) => {
-        const regexPatterns = [
-          /(?:youtube\.com\/(?:shorts\/|watch\?v=|embed\/)|youtu\.be\/)([\w-]{11})/,
-          /(?:youtube\.com\/shorts\/([\w-]{11}))/
-        ];
-        
-        for (const regex of regexPatterns) {
-          const match = url.match(regex);
-          if (match && match[1]) return match[1];
-        }
-        
-        return null;
-      };
-
-      const videoId = extractYouTubeId(href);
-      if (videoId) {
-        // Vérifier si c'est un short YouTube
-        const isYouTubeShort = href.includes('/shorts/');
-        
-        // Créer un iframe pour remplacer le lien
-        const iframe = document.createElement('iframe');
-        iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}`);
-        iframe.setAttribute('title', 'YouTube video player');
-        iframe.setAttribute('frameborder', '0');
-        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-        iframe.setAttribute('allowfullscreen', 'true');
-        iframe.className = 'youtube-embed';
-        
-        // Créer un conteneur
-        const container = document.createElement('div');
-        container.className = isYouTubeShort ? 'video-container youtube-short' : 'video-container';
-        container.appendChild(iframe);
-        
-        // Remplacer le lien par l'iframe
-        if (link.parentElement) {
-          link.parentElement.replaceChild(container, link);
-        }
-      }
-    });
-  }, [children]);
+const MarkdownRenderer: React.FC<MarkdownRendererProps> = ({ children }) => {
+  const [expanded, setExpanded] = React.useState<string | null>(null);
 
   return (
-    <div 
-      className="markdown-rendered prose prose-lg max-w-none"
-      dangerouslySetInnerHTML={{ __html: markdownToHtml(fixedMarkdown) }}
-    />
+    <div className="markdown-rendered">
+      <ReactMarkdown
+        components={{
+          img: ({ node, ...props }) => (
+            <img
+              {...props}
+              className={`article-image${expanded === props.src ? ' expanded' : ''}`}
+              onClick={() => setExpanded(expanded === props.src ? null : props.src)}
+              loading="lazy"
+              alt={props.alt || ''}
+            />
+          ),
+        }}
+      >
+        {children}
+      </ReactMarkdown>
+    </div>
   );
-}
+};
+
+export default MarkdownRenderer;
 
 // Si le rendu ci-dessus fonctionne, tu pourras remplacer par :
 // return <ReactMarkdown>{children}</ReactMarkdown>; 

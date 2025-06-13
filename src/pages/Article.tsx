@@ -2,6 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import MarkdownRenderer from "@/components/ui/MarkdownRenderer";
 
+const markdownImageStyle = `
+.markdown-rendered img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 2rem auto;
+  border-radius: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  cursor: zoom-in;
+  transition: transform 0.2s;
+}
+.markdown-rendered img.expanded {
+  transform: scale(2);
+  z-index: 10;
+  cursor: zoom-out;
+}
+`;
+
 const Article = () => {
   const { slug } = useParams();
   const [article, setArticle] = useState<any>(null);
@@ -17,116 +35,6 @@ const Article = () => {
     }
     if (slug) fetchArticle();
   }, [slug]);
-
-  // Effet pour ajouter le comportement de zoom aux images après le rendu
-  useEffect(() => {
-    if (!loading && article) {
-      // Timeout pour s'assurer que le contenu est bien rendu
-      setTimeout(() => {
-        const articleImages = document.querySelectorAll('.markdown-rendered img');
-        
-        articleImages.forEach(img => {
-          // Ajouter le comportement de zoom si ce n'est pas déjà fait
-          if (!img.getAttribute('onclick')) {
-            img.setAttribute('onclick', 
-              "if(this.classList.contains('expanded')) { this.classList.remove('expanded'); } else { this.classList.add('expanded'); }"
-            );
-          }
-          
-          // S'assurer que l'image est dans un conteneur
-          if (!img.closest('.image-container') && img.parentElement && !img.parentElement.classList.contains('image-container')) {
-            const container = document.createElement('div');
-            container.className = 'image-container';
-            img.parentElement.insertBefore(container, img);
-            container.appendChild(img);
-          }
-          
-          // Réparer les URLs malformées
-          const src = img.getAttribute('src');
-          if (src) {
-            // Vérifier si l'URL est fragmentée (contient des balises HTML ou n'est pas complète)
-            if (src.includes('&lt;') || src.includes('&gt;') || src.includes('<em') || 
-                (src.includes('prod-files-secure.s3') && !src.includes('?X-Amz-Algorithm'))) {
-              
-              // Chercher le texte suivant qui pourrait être la suite de l'URL
-              let nextNode = img.nextSibling;
-              let remainingUrl = '';
-              
-              // Collecter le texte qui pourrait faire partie de l'URL
-              while (nextNode) {
-                if (nextNode.nodeType === Node.TEXT_NODE) {
-                  remainingUrl += nextNode.textContent || '';
-                } else if (nextNode.nodeType === Node.ELEMENT_NODE) {
-                  // Si c'est une balise, prendre son contenu texte
-                  remainingUrl += nextNode.textContent || '';
-                }
-                
-                // Si on trouve la fin de l'URL, arrêter
-                if (remainingUrl.includes('&X-Amz-Signature=')) {
-                  remainingUrl = remainingUrl.substring(0, remainingUrl.indexOf('&X-Amz-Signature=') + 
-                    remainingUrl.substring(remainingUrl.indexOf('&X-Amz-Signature=')).indexOf('"'));
-                  break;
-                }
-                
-                nextNode = nextNode.nextSibling;
-              }
-              
-              // Reconstruire l'URL complète
-              const fullUrl = (src + remainingUrl).replace(/\s/g, '');
-              
-              // Nettoyer l'URL des balises HTML
-              const cleanUrl = fullUrl
-                .replace(/<[^>]*>/g, '') // Enlever toutes les balises HTML
-                .replace(/&lt;/g, '<')
-                .replace(/&gt;/g, '>');
-              
-              // Appliquer l'URL corrigée
-              img.setAttribute('src', cleanUrl);
-              
-              // Nettoyer les nœuds texte qui ont été utilisés pour l'URL
-              nextNode = img.nextSibling;
-              while (nextNode && remainingUrl.includes(nextNode.textContent || '')) {
-                const nodeToRemove = nextNode;
-                nextNode = nextNode.nextSibling;
-                if (nodeToRemove.parentNode) {
-                  nodeToRemove.parentNode.removeChild(nodeToRemove);
-                }
-              }
-            }
-          }
-        });
-        
-        // Nettoyer spécifiquement le HTML autour des images Notion
-        const articleContent = document.querySelector('.markdown-rendered');
-        if (articleContent) {
-          // Rechercher des textes qui ressemblent à des fragments d'URL Notion
-          const textNodes = [];
-          const findTextNodes = (node) => {
-            if (node.nodeType === Node.TEXT_NODE) {
-              if ((node.textContent || '').includes('prod-files-secure.s3') || 
-                  (node.textContent || '').includes('X-Amz-Algorithm') || 
-                  (node.textContent || '').includes('X-Amz-Signature')) {
-                textNodes.push(node);
-              }
-            } else if (node.nodeType === Node.ELEMENT_NODE && node.nodeName !== 'IMG') {
-              for (const child of node.childNodes) {
-                findTextNodes(child);
-              }
-            }
-          };
-          
-          findTextNodes(articleContent);
-          
-          // Supprimer ces fragments d'URL
-          textNodes.forEach(node => {
-            if (node.parentNode) {
-              node.parentNode.removeChild(node);
-            }
-          });
-        }
-      }, 500);
-    }
-  }, [loading, article]);
 
   const LoaderMaison = () => (
     <div className="flex flex-col items-center justify-center py-32">
@@ -160,6 +68,7 @@ const Article = () => {
 
   return (
     <main className="pt-40 pb-16 px-4 max-w-3xl mx-auto">
+      <style>{markdownImageStyle}</style>
       {/* Bannière immersive avec image de couverture et overlay */}
       <section className="mb-8">
         <div className="relative w-full h-56 md:h-80 rounded-2xl overflow-hidden shadow-lg mb-6">
