@@ -70,7 +70,7 @@
   "crons": [
     {
       "path": "/api/cron-articles",
-      "schedule": "0 * * * *"
+      "schedule": "@daily"
     }
   ]
 } 
