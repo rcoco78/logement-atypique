@@ -1,25 +1,70 @@
+const fs = require('fs');
+const path = require('path');
+
 module.exports = async function handler(req, res) {
+  const baseUrl = 'https://www.logement-atypique.fr';
+
+  // Pages statiques du site
   const staticPages = [
     '',
     'logements',
     'blog',
-    'partenariat'
+    'partenariat',
+    'contact',
+    'equipe',
+    'mentions-legales',
+    'conditions',
+    'temoignages',
+    'faq',
+    'donnees-publiques'
   ];
 
-  const articles = [
-    { slug: 'mon-premier-article' },
-    { slug: 'un-autre-article' }
-  ];
+  // Récupération des articles de blog
+  const articlesDir = path.join(process.cwd(), 'src/content/blog');
+  let articles = [];
+  
+  try {
+    const files = fs.readdirSync(articlesDir);
+    articles = files
+      .filter(file => file.endsWith('.md'))
+      .map(file => ({
+        slug: file.replace('.md', '')
+      }));
+  } catch (error) {
+    console.error('Erreur lors de la lecture des articles:', error);
+  }
 
-  const baseUrl = 'https://www.logement-atypique.fr';
+  // Récupération des logements
+  const logementsDir = path.join(process.cwd(), 'src/content/logements');
+  let logements = [];
+  
+  try {
+    const files = fs.readdirSync(logementsDir);
+    logements = files
+      .filter(file => file.endsWith('.md'))
+      .map(file => ({
+        slug: file.replace('.md', '')
+      }));
+  } catch (error) {
+    console.error('Erreur lors de la lecture des logements:', error);
+  }
 
+  // Génération des URLs
   let urls = staticPages.map(
     (page) => `<url><loc>${baseUrl}/${page}</loc></url>`
   );
 
+  // Ajout des URLs des articles
   urls = urls.concat(
     articles.map(
       (article) => `<url><loc>${baseUrl}/article/${article.slug}</loc></url>`
+    )
+  );
+
+  // Ajout des URLs des logements
+  urls = urls.concat(
+    logements.map(
+      (logement) => `<url><loc>${baseUrl}/logement/${logement.slug}</loc></url>`
     )
   );
 
