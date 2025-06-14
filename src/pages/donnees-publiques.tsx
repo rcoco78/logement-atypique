@@ -267,10 +267,10 @@ const DonneesPubliques = () => {
   ];
 
   return (
-    <main className="pt-24 md:pt-40 pb-8 md:pb-16 px-4 max-w-7xl mx-auto">
-      <section className="mb-8 md:mb-12 text-center">
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4 md:mb-6">Données publiques</h1>
-        <p className="text-lg md:text-xl text-muted-foreground mb-4 md:mb-6">
+    <main className="pt-40 pb-16 px-4 max-w-7xl mx-auto">
+      <section className="mb-12 text-center">
+        <h1 className="text-4xl md:text-5xl font-bold mb-6">Données publiques</h1>
+        <p className="text-xl text-muted-foreground mb-6">
           Découvrez les statistiques et l'évolution de notre plateforme
         </p>
       </section>
@@ -338,9 +338,9 @@ const DonneesPubliques = () => {
       <div className="mt-8 mb-8">
         <Card>
           <CardHeader>
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <CardTitle className="text-2xl font-semibold leading-none tracking-tight">Trafic et visibilité</CardTitle>
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
                 <button
                   onClick={() => setVisitorTimeRange('monthly')}
                   className={`px-3 py-1 rounded-full text-sm ${
@@ -416,9 +416,9 @@ const DonneesPubliques = () => {
       <div className="mt-8 mb-8">
         <Card>
           <CardHeader>
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <CardTitle className="text-2xl font-semibold leading-none tracking-tight">Croissance de notre communauté</CardTitle>
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
                 <button
                   onClick={() => setSocialTimeRange('daily')}
                   className={`px-3 py-1 rounded-full text-sm ${
@@ -509,9 +509,9 @@ const DonneesPubliques = () => {
       <div className="mt-8 mb-8">
         <Card>
           <CardHeader>
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
               <CardTitle className="text-2xl font-semibold leading-none tracking-tight">Croissance de notre catalogue</CardTitle>
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
                 <button
                   onClick={() => setTimeRange('monthly')}
                   className={`px-3 py-1 rounded-full text-sm ${
