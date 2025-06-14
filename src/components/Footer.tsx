@@ -129,13 +129,15 @@ const Footer = () => {
           ))}
         </div>
 
-        <div className="border-t border-border mt-12 pt-8 flex flex-col md:flex-row justify-between items-start">
-          <div className="flex flex-col md:flex-row items-start space-y-2 md:space-y-0 md:space-x-4">
-            <p className="text-muted-foreground text-sm">
+        <div className="border-t border-border mt-12 pt-8 flex flex-col md:flex-row justify-between items-center md:items-start">
+          <div className="flex flex-col md:flex-row items-center md:items-start space-y-2 md:space-y-0">
+            <p className="text-muted-foreground text-sm mb-2 md:mb-0 md:mr-8 text-center md:text-left">
               © 2025 logement-atypique.fr. Tous droits réservés.
             </p>
-            <a href="/mentions-legales" className="text-muted-foreground hover:text-foreground text-sm md:ml-4">Mentions légales</a>
-            <a href="/conditions" className="text-muted-foreground hover:text-foreground text-sm md:ml-2">Conditions générales</a>
+            <div className="flex space-x-4">
+              <a href="/mentions-legales" className="text-muted-foreground hover:text-foreground text-sm">Mentions légales</a>
+              <a href="/conditions" className="text-muted-foreground hover:text-foreground text-sm">Conditions générales</a>
+            </div>
           </div>
           <div className="flex items-center space-x-4 mt-4 md:mt-0">
             <span className="text-muted-foreground text-sm">

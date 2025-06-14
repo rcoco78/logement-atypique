@@ -58,7 +58,7 @@ const Logements = () => {
           </p>
         </div>
         {/* Toggle Filtres Mobile */}
-        <div className="mb-4 md:hidden flex justify-center">
+        <div className="mb-4 md:hidden flex justify-center px-4 max-w-7xl mx-auto">
           <Button variant="outline" onClick={() => setShowFilters((v) => !v)}>
             {showFilters ? 'Masquer les filtres' : 'Filtres'}
           </Button>

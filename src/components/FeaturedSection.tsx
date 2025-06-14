@@ -195,6 +195,7 @@ const FeaturedSection = ({ limit }: { limit?: number }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const location = useLocation();
   const params = new URLSearchParams(location.search);
+  const isHomePage = location.pathname === '/';
 
   const filterByParams = (property) => {
     // Type
@@ -250,13 +251,16 @@ const FeaturedSection = ({ limit }: { limit?: number }) => {
 
   return (
     <section className="py-1 px-4 max-w-7xl mx-auto">
-      <div className="text-center mb-12">
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">Nos coups de cœur</h2>
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-          Découvrez nos logements d'exception filmés en vidéo pour une immersion totale avant votre séjour
-        </p>
-      </div>
-
+      {isHomePage && (
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            Les logements "hot" du moment
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Découvrez les 4 hébergements les plus plébiscités cette semaine
+          </p>
+        </div>
+      )}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
         {displayedProperties.map((property, idx) => {
           // Insérer la card spéciale au milieu de la liste affichée

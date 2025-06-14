@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import ScrollToTop from './components/ScrollToTop';
 import Index from "./pages/Index";
 import Logements from "./pages/Logements";
 import Partenariat from "./pages/Partenariat";
@@ -14,6 +15,7 @@ import Footer from './components/Footer';
 import GoogleAnalytics from './components/GoogleAnalytics';
 import Equipe from './pages/equipe';
 import MentionsLegales from './pages/mentions-legales';
+import Conditions from './pages/conditions';
 import Temoignages from './pages/temoignages';
 import Contact from './pages/contact';
 import FAQ from './pages/faq';
@@ -29,6 +31,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollToTop />
         <GoogleAnalytics />
         <Header />
         <Routes>
@@ -39,6 +42,7 @@ const App = () => (
           <Route path="/article/:slug" element={<Article />} />
           <Route path="/equipe" element={<Equipe />} />
           <Route path="/mentions-legales" element={<MentionsLegales />} />
+          <Route path="/conditions" element={<Conditions />} />
           <Route path="/temoignages" element={<Temoignages />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<FAQ />} />
