@@ -88,6 +88,14 @@ function getLogements() {
   }
 }
 
+// Fonction pour extraire la priorité d'une URL
+function getPriorityFromUrl(url) {
+  if (url.includes('<priority>')) {
+    return parseFloat(url.match(/<priority>([0-9.]+)<\/priority>/)[1]);
+  }
+  return 0;
+}
+
 // Fonction principale pour générer le sitemap
 async function generateSitemap() {
   let urls = staticPages.map(
@@ -128,6 +136,9 @@ async function generateSitemap() {
 </url>`
     )
   );
+
+  // Tri des URLs par priorité décroissante
+  urls.sort((a, b) => getPriorityFromUrl(b) - getPriorityFromUrl(a));
 
   return `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
