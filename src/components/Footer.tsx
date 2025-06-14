@@ -29,6 +29,7 @@ const Footer = () => {
         { name: 'Blog', href: '/blog' },
         { name: 'Témoignages propriétaires', href: '/temoignages' },
         { name: 'FAQ / Comment ça marche', href: '/faq' },
+        { name: 'Données publiques', href: '/donnees-publiques' },
       ]
     },
     {

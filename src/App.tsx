@@ -19,6 +19,7 @@ import Conditions from './pages/conditions';
 import Temoignages from './pages/temoignages';
 import Contact from './pages/contact';
 import FAQ from './pages/faq';
+import DonneesPubliques from "./pages/donnees-publiques";
 import { Analytics } from '@vercel/analytics/react';
 
 
@@ -43,6 +44,7 @@ const App = () => (
           <Route path="/equipe" element={<Equipe />} />
           <Route path="/mentions-legales" element={<MentionsLegales />} />
           <Route path="/conditions" element={<Conditions />} />
+          <Route path="/donnees-publiques" element={<DonneesPubliques />} />
           <Route path="/temoignages" element={<Temoignages />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<FAQ />} />
